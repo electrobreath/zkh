@@ -196,7 +196,7 @@ public class UserWindowsHandler extends VGroup {
     photoButton = new Button();
     photoButton.width = 120;
     photoButton.height = 38;
-    photoButton.label = "мои фотографии";
+    photoButton.label = "мои фотографии!";
     photoButton.styleName = "photoButton";
 
     var win:MyPhotoWindow = MyPhotoWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), MyPhotoWindow, false));
