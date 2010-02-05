@@ -1,0 +1,257 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials
+END
+IBillboardMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/IBillboardMaterial.as
+END
+SpecularPBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1884/trunk/fp10/Away3D/src/away3d/materials/SpecularPBMaterial.as
+END
+DiffusePBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1718/trunk/fp10/Away3D/src/away3d/materials/DiffusePBMaterial.as
+END
+SphericEnvMapPBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1898/trunk/fp10/Away3D/src/away3d/materials/SphericEnvMapPBMaterial.as
+END
+DepthBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/DepthBitmapMaterial.as
+END
+WhiteShadingBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2137/trunk/fp10/Away3D/src/away3d/materials/WhiteShadingBitmapMaterial.as
+END
+BitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/BitmapMaterial.as
+END
+MultiPassShaderMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1851/trunk/fp10/Away3D/src/away3d/materials/MultiPassShaderMaterial.as
+END
+IUVMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/IUVMaterial.as
+END
+EnviroColorMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2137/trunk/fp10/Away3D/src/away3d/materials/EnviroColorMaterial.as
+END
+ISegmentMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/ISegmentMaterial.as
+END
+IMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/IMaterial.as
+END
+WireframeMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1678/trunk/fp10/Away3D/src/away3d/materials/WireframeMaterial.as
+END
+SpecularMultiPassMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/1884/trunk/fp10/Away3D/src/away3d/materials/SpecularMultiPassMaterial.as
+END
+Dot3MovieMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/Dot3MovieMaterial.as
+END
+ColorMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/ColorMaterial.as
+END
+Dot3BitmapMaterialF10.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/Dot3BitmapMaterialF10.as
+END
+SinglePassShaderMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/1645/trunk/fp10/Away3D/src/away3d/materials/SinglePassShaderMaterial.as
+END
+ShadingColorMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/ShadingColorMaterial.as
+END
+Dot3BitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/Dot3BitmapMaterial.as
+END
+IFogMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/IFogMaterial.as
+END
+PhongColorMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/PhongColorMaterial.as
+END
+AnimatedBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/AnimatedBitmapMaterial.as
+END
+ITriangleMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/ITriangleMaterial.as
+END
+MovieMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/MovieMaterial.as
+END
+FresnelPBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1898/trunk/fp10/Away3D/src/away3d/materials/FresnelPBMaterial.as
+END
+PixelShaderMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1851/trunk/fp10/Away3D/src/away3d/materials/PixelShaderMaterial.as
+END
+BitmapFileMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2055/trunk/fp10/Away3D/src/away3d/materials/BitmapFileMaterial.as
+END
+CubicEnvMapPBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1898/trunk/fp10/Away3D/src/away3d/materials/CubicEnvMapPBMaterial.as
+END
+EnviroBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/EnviroBitmapMaterial.as
+END
+ILayerMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/ILayerMaterial.as
+END
+DiffuseMultiPassMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/1884/trunk/fp10/Away3D/src/away3d/materials/DiffuseMultiPassMaterial.as
+END
+CompositeMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/CompositeMaterial.as
+END
+PhongPBMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1851/trunk/fp10/Away3D/src/away3d/materials/PhongPBMaterial.as
+END
+CenterLightingMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1718/trunk/fp10/Away3D/src/away3d/materials/CenterLightingMaterial.as
+END
+PhongMovieMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/PhongMovieMaterial.as
+END
+PhongBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/PhongBitmapMaterial.as
+END
+WireColorMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/WireColorMaterial.as
+END
+VideoMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2015/trunk/fp10/Away3D/src/away3d/materials/VideoMaterial.as
+END
+TransformBitmapMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2137/trunk/fp10/Away3D/src/away3d/materials/TransformBitmapMaterial.as
+END
+BitmapMaskMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2141/trunk/fp10/Away3D/src/away3d/materials/BitmapMaskMaterial.as
+END
+PhongMultiPassMaterial.as
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1884/trunk/fp10/Away3D/src/away3d/materials/PhongMultiPassMaterial.as
+END

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2078/trunk/fp10/Away3D/src/away3d/materials/utils
+END
+TangentToObjectMapper.as
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/1696/trunk/fp10/Away3D/src/away3d/materials/utils/TangentToObjectMapper.as
+END
+HeightMapGenerator.as
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/utils/HeightMapGenerator.as
+END
+NormalMapGenerator.as
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/utils/NormalMapGenerator.as
+END
+LightPrebaker.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/utils/LightPrebaker.as
+END
+Projector.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2078/trunk/fp10/Away3D/src/away3d/materials/utils/Projector.as
+END
+NormalBumpMaker.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/utils/NormalBumpMaker.as
+END
+SimpleShadow.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/materials/utils/SimpleShadow.as
+END

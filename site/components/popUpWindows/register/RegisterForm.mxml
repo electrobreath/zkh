@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- components\topMenu\popUpWindows\RegisterForm.mxml -->
+<s:Group name="RegisterForm" creationComplete="addListeners()"
+         xmlns="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         xmlns:custom="site.components.addressSelectors.*">
+
+  <s:states>
+    <s:State name="registration"/>
+    <s:State name="registrationComplete"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+    import mx.validators.Validator;
+
+    import site.components.addressSelectors.CityDropDownList;
+    import site.components.popUpWindows.*;
+    import site.model.FlexUser;
+    import site.util.UserHandler;
+
+    import spark.events.IndexChangeEvent;
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    private var userHandler:UserHandler = new UserHandler(true);
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(loginValidator);
+      validate(passwordValidator);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid && userHandler.isLoginFree(login.text);
+      if (!userHandler.isLoginFree(login.text) || login.text.length < 3) {
+        loginTitle.setStyle("color", "#ff0000")
+      } else {
+        loginTitle.setStyle("color", "#000000")
+      }
+      return currentControlIsValid;
+    }
+
+    private function regButtonClick():void {
+      var user:FlexUser = new FlexUser();
+      user.login = login.text;
+      user.password = password.text;
+      user.firstName = fname.text;
+      user.lastName = lname.text;
+      user.email = email.text;
+      user.mobile = mobile.text;
+      user.city = cityDropDownList.selectedItem.label;
+      user.street = streetDropDownList.selectedItem.label;
+      user.houseNumber = houseDropDownList.selectedItem.label;
+      user.floor = int(floor.text);
+      user.apartmentNumber = apartmentDropDownList.selectedItem.label;
+      UserHandler.createUser(user);
+
+      currentState = "registrationComplete";
+      /*var t:Timer = new Timer(1600, 0);
+      t.addEventListener(TimerEvent.TIMER, timerHandler);
+      function timerHandler(event:TimerEvent):void {
+        t.removeEventListener(TimerEvent.TIMER, timerHandler);
+        t.stop();
+        PopUpManager.removePopUp(parent as IFlexDisplayObject);
+      }
+
+      t.start();*/
+      setTimeout(function(){PopUpManager.removePopUp(parent as IFlexDisplayObject);}, 1600);
+    }
+
+    private function updateAddressSelectors(event:IndexChangeEvent):void {
+      if (event.target == cityDropDownList) {
+        streetDropDownList.refresh(event.target.selectedItem.data);
+      }
+      if (event.target == streetDropDownList) {
+        houseDropDownList.refresh(event.target.selectedItem.data);
+      }
+      if (event.target == houseDropDownList) {
+        apartmentDropDownList.refresh(event.target.selectedItem.data);
+      }
+    }
+
+    private function addListeners():void {
+      cityDropDownList.addEventListener(IndexChangeEvent.CHANGE, function(event:IndexChangeEvent) {
+        if (cityDropDownList.selectedIndex < 0) formIsValid = false;
+        streetDropDownList.refresh(event.target.selectedItem.data);
+        houseDropDownList.clear();
+        apartmentDropDownList.clear();
+      });
+      streetDropDownList.addEventListener(IndexChangeEvent.CHANGE, function(event:IndexChangeEvent) {
+        houseDropDownList.refresh(event.target.selectedItem.data);
+        apartmentDropDownList.clear();
+      });
+      houseDropDownList.addEventListener(IndexChangeEvent.CHANGE, function(event:IndexChangeEvent) {
+        apartmentDropDownList.refresh(event.target.selectedItem.data);
+      });
+    }
+
+    ]]></Script>
+
+  <Declarations>
+    <mx:StringValidator id="loginValidator" source="{login}" property="text" minLength="3" maxLength="12"
+                        trigger="{regButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 3" required="true"/>
+
+    <mx:StringValidator id="passwordValidator" source="{password}" property="text" minLength="4" maxLength="12"
+                        trigger="{regButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 4" required="true"/>
+
+    <mx:NumberValidator id="cityDropDownListValidator" source="{cityDropDownList}" minValue="0" property="selectedIndex"
+                        lowerThanMinError="обязательное поле" trigger="{regButton}" triggerEvent="click"/>
+
+    <mx:NumberValidator id="floorValidator" source="{floor}" minValue="0" property="selectedIndex"
+                        lowerThanMinError="обязательное поле" trigger="{regButton}" triggerEvent="click"/>
+  </Declarations>
+
+  <mx:Form width="100%" height="100%" includeIn="registration">
+
+    <mx:FormItem id="loginTitle" fontWeight="bold" label="логин">
+      <mx:TextInput id="login" width="200" change="validateForm(event);"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="пароль">
+      <mx:TextInput id="password" width="200" displayAsPassword="true" change="validateForm(event);"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="фамилия">
+      <mx:TextInput id="lname" width="200"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="имя">
+      <mx:TextInput id="fname" width="200"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="email">
+      <mx:TextInput id="email" width="200"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="мобильный телефон">
+      <mx:TextInput id="mobile" width="200"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="город">
+      <custom:CityDropDownList id="cityDropDownList"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="улица">
+      <custom:StreetDropDownList id="streetDropDownList"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="дом">
+      <custom:HouseDropDownList id="houseDropDownList"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="этаж">
+      <mx:TextInput id="floor" width="30"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="квартира">
+      <custom:ApartmentDropDownList id="apartmentDropDownList"/>
+    </mx:FormItem>
+
+    <mx:FormItem>
+      <mx:Button id="regButton" label="зарегистрировать" width="200" enabled="{formIsValid}" click="regButtonClick()"/>
+    </mx:FormItem>
+
+  </mx:Form>
+
+  <mx:Text includeIn="registrationComplete" fontSize="19" paddingLeft="110" paddingTop="100">
+    <mx:htmlText>
+      <![CDATA[Спасибо за регистрацию !]]>
+    </mx:htmlText>
+  </mx:Text>
+
+</s:Group>

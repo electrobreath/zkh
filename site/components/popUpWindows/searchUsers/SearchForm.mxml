@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- components\topMenu\popUpWindows\RegisterForm.mxml -->
+<s:VGroup name="SearchForm" paddingLeft="10" paddingTop="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx">
+
+  <s:states>
+    <s:State name="sendingMessage"/>
+    <s:State name="noUsersFound"/>
+    <s:State name="usersFound"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+    import mx.rpc.remoting.mxml.RemoteObject;
+    import mx.validators.Validator;
+
+    import site.components.popUpWindows.PopUpStore;
+    import site.components.popUpWindows.profile.ProfileWindow;
+    import site.mainPage.MainPageModel;
+    import site.model.FlexUser;
+    import site.model.FlexMessage;
+    import site.util.UserHandler;
+
+    import spark.components.Button;
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    [Bindable]
+    private var formIsValid1:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    private var focussedFormControl1:DisplayObject;
+    private var foundUsers:ArrayCollection = new ArrayCollection();
+    private var selectedRecipientId:Number;
+    private var isFriendRequest:Boolean = false;
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(nameValidator);
+    }
+
+    private function validateForm1(event:Event):void {
+      focussedFormControl1 = event.target as DisplayObject;
+      formIsValid1 = true;
+      validate1(messageSubjectValidator);
+      validate1(messageTextValidator);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid;
+      return currentControlIsValid;
+    }
+
+    private function validate1(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl1);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid1 = formIsValid1 && currentControlIsValid;
+      return currentControlIsValid;
+    }
+
+    private function searchUserClick():void {
+      foundUsers.removeAll();
+      if (null != userButtonsGroup) {
+        for (var i:int = 0; i < userButtonsGroup.numChildren; i++) {
+          Button(userButtonsGroup.getChildAt(i)).enabled = false;
+        }
+      }
+      searchUser();
+    }
+
+    private function searchUser():void {
+      var ro:RemoteObject = new RemoteObject("FD");
+      ro.showBusyCursor = true;
+      ro.addEventListener("result", result);
+      ro.addEventListener("fault", fault);
+      ro.searchUsersByNames(names.text);
+
+      function result(event:ResultEvent):void {
+        ro.removeEventListener("result", result);
+        var users:ArrayCollection = ArrayCollection(event.result);
+        for each(var user:FlexUser in users) {
+          foundUsers.addItem({id:user.id, login:user.login, firstName:user.firstName, lastName:user.lastName, city:user.city,
+            street:user.street, houseNumber:user.houseNumber, floor:user.floor, apartmentNumber:user.apartmentNumber});
+        }
+        renderFoundUsersDataGrid();
+      }
+
+      function fault(event:FaultEvent):void {
+        ro.removeEventListener("fault", fault);
+        //Alert.show(event.toString());
+      }
+    }
+
+    private function renderFoundUsersDataGrid():void {
+      if (null != messageGroup) messageGroup.visible = false;
+      if (foundUsers.length == 0) {
+        currentState = "noUsersFound";
+        (parent as IFlexDisplayObject).height = 100;
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      } else {
+        currentState = "usersFound";
+        foundUsersDataGrid.height = 20 + (foundUsersDataGrid.rowHeight + 0.4) * foundUsers.length;
+        foundUsersDataGrid.dataProvider = foundUsers;
+        (parent as IFlexDisplayObject).height = 64 + foundUsersDataGrid.height + 52;
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+        foundUsersDataGrid.visible = true;
+        //Alert.show(String(event.result));
+      }
+    }
+
+    private function userItemClick(event:Event):void {
+      for (var i:int = 0; i < userButtonsGroup.numChildren; i++) {
+        Button(userButtonsGroup.getChildAt(i)).enabled = true;
+      }
+      selectedRecipientId = event.target.selectedItem.id;
+    }
+
+    private function createMessage():void {
+      if (messageGroup.visible) {
+        messageGroup.visible = false;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (messageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      } else {
+        messageGroup.visible = true;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height + (messageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      }
+      //Alert.show(UserHandler.getUser().id.toString() + " " + UserHandler.getUser().firstName);
+    }
+
+    private function sendMessage():void {
+      var message:FlexMessage = new FlexMessage();
+      message.subject = messageSubject.text;
+      message.text = messageText.text;
+      message.senderId = UserHandler.getUser().id;
+      message.recipientId = selectedRecipientId;
+      if(isFriendRequest){
+        UserHandler.createFriendRequest(message);
+      } else {
+        UserHandler.createMessage(message);
+      }
+      messageSubject.text = "";
+      messageText.text = "";
+      sendMessageButton.enabled = false;
+      messageGroup.visible = false;
+      (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (messageGroup.height + 4);
+      UserHandler.userWindowsHandler.updateOutcomingMessages();
+      //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+    }
+
+    private function createFriendRequest():void {
+      if (messageGroup.visible) {
+        messageSubject.text = "";
+        messageSubject.editable = true;
+        isFriendRequest = false;
+        messageGroup.visible = false;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (messageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      } else {
+        messageSubject.text = "приглашение дружить";
+        messageSubject.editable = false;
+        isFriendRequest = true;
+        messageGroup.visible = true;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height + (messageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      }
+      //Alert.show(UserHandler.getUser().id.toString() + " " + UserHandler.getUser().firstName);
+    }
+
+    private function viewProfile():void {
+      var win:ProfileWindow = ProfileWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), ProfileWindow, true));
+      win.initViewProfileWindow("просмотр профиля", selectedRecipientId);
+      PopUpManager.centerPopUp(win);
+    }
+
+    ]]></Script>
+
+  <Declarations>
+    <mx:StringValidator id="nameValidator" source="{names}" property="text" minLength="1" maxLength="12"
+                        triggerEvent="click" trigger="{searchUserButton}"
+                        tooLongError="больше 12" tooShortError="меньше 3" required="true"/>
+    <mx:StringValidator id="messageSubjectValidator" source="{messageSubject}" property="text" minLength="4"
+                        triggerEvent="click" trigger="{sendMessageButton}"
+                        tooShortError="напишите еще что нибуть" required="true"/>
+    <mx:StringValidator id="messageTextValidator" source="{messageText}" property="text" minLength="10"
+                        triggerEvent="click" trigger="{sendMessageButton}"
+                        tooShortError="напишите чуть чуть больше" required="true"/>
+  </Declarations>
+
+  <s:Group id="searchBar">
+    <s:layout>
+      <s:HorizontalLayout verticalAlign="middle"/>
+    </s:layout>
+    <s:Label color="0x000000" text="ник, имя, фамилию, квартиру, этаж" fontSize="12" fontStyle="italic" fontWeight="bold"
+             fontFamily="arial"/>
+    <s:TextInput id="names" change="validateForm(event)"/>
+    <s:Button id="searchUserButton" label="найти" click="searchUserClick()" enabled="{formIsValid}"/>
+    <s:Label id="noUsersFound" text="нет совпадений" color="red" includeIn="noUsersFound"/>
+  </s:Group>
+
+  <s:HGroup id="userButtonsGroup" includeIn="usersFound">
+    <s:Button id="createMessageButton" width="24" height="24" toolTip="написать сообщение" label="message"
+              click="createMessage()" skinClass="site.components.popUpWindows.buttonSkins.replyMessageButton.Skin"/>
+    <s:Button id="profileButton" width="24" height="24" toolTip="посмотреть профиль" label="friend"
+              click="viewProfile()" skinClass="site.components.popUpWindows.buttonSkins.viewProfileButton.Skin"/>
+    <s:Button id="friendButton" width="24" height="24" toolTip="пригласить в друзья" label="friend"
+              click="createFriendRequest()"
+              skinClass="site.components.popUpWindows.buttonSkins.inviteFriendButton.Skin"/>
+  </s:HGroup>
+
+  <mx:DataGrid id="foundUsersDataGrid" visible="false" height="4" width="530" fontSize="10" fontFamily="tahoma"
+               itemClick="userItemClick(event)" verticalScrollPolicy="off" includeIn="usersFound, sendingMessage">
+    <mx:columns>
+      <mx:DataGridColumn headerText="id" dataField="id" visible="false"/>
+      <mx:DataGridColumn headerText="ник" dataField="login" width="20"/>
+      <mx:DataGridColumn headerText="имя" dataField="firstName" width="50"/>
+      <mx:DataGridColumn headerText="фамилия" dataField="lastName" width="50"/>
+      <!--mx:DataGridColumn headerText="город" dataField="city" width="50"/>
+      <mx:DataGridColumn headerText="улица" dataField="street" width="50"/>
+      <mx:DataGridColumn headerText="дом" dataField="houseNumber" width="25"/-->
+      <mx:DataGridColumn headerText="этаж" dataField="floor" width="10"/>
+      <mx:DataGridColumn headerText="кв." dataField="apartmentNumber" width="20"/>
+    </mx:columns>
+  </mx:DataGrid>
+
+  <s:BorderContainer id="messageGroup" height="110" width="530" visible="false" fontFamily="tahoma" fontSize="10"
+                     borderColor="0x707070" backgroundAlpha="0.0" includeIn="usersFound">
+    <mx:Form paddingTop="3">
+      <mx:FormItem label="заголовок">
+        <s:TextInput id="messageSubject" width="420" change="validateForm1(event);"/>
+      </mx:FormItem>
+      <mx:FormItem label="текст">
+        <mx:TextArea id="messageText" width="420" height="50" change="validateForm1(event);"/>
+      </mx:FormItem>
+      <mx:FormItem>
+        <s:Button id="sendMessageButton" label="отправить" click="sendMessage()" enabled="{formIsValid1}"/>
+      </mx:FormItem>
+    </mx:Form>
+  </s:BorderContainer>
+
+</s:VGroup>

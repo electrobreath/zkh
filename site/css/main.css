@@ -1,0 +1,148 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/halo";
+@namespace ns "library://ns.adobe.com/flex/mx";
+
+.topMenuArea{
+	background-color:#707070;
+	
+}
+.bottomArea{
+	background-color:#707070;
+	
+}
+.middleArea{
+	border-width:0;
+}
+.messButton{
+	font-size:13;
+	font-family:tahoma;
+}
+.messLabel{
+	font-size:11;
+	font-family:tahoma;
+}
+.textForm{
+	font-weight:bold;
+	color:#505050;
+}
+.allWindowTitleLabel{
+	font-family:tahoma;
+	font-size:13;
+	color:#000000;
+	font-sharpness:-350;
+	font-thickness:10;
+	
+}
+.registerWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+.messageWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	background-alpha:0.7;
+	border-alpha:0.5;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+.myPhotoWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	background-alpha:0.7;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+
+.photoContainer{
+	background-color:#000000;
+	background-alpha:0.3;
+	corner-radius:2;
+	border-alpha:0.4;
+}
+.friendsWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	background-alpha:0.7;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+.advertisementWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	background-alpha:0.7;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+.profileWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	background-alpha:0.7;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}
+
+.settingsWindow{
+	background-color:#a0a0a0;
+	padding-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	border-color:#707070;
+	border-alpha:0.5;
+	background-alpha:0.7;
+	corner-radius:2;
+	border-thickness-top:0;
+	border-thickness-bottom:0;
+	border-thickness-left:0;
+	border-thickness-right:0;
+}

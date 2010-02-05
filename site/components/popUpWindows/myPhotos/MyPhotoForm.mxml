@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:HGroup name="ProfileForm"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:custom="site.components.addressSelectors.*"
+          xmlns:net="flash.net.*">
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+    import mx.validators.Validator;
+
+    import site.components.addressSelectors.CityDropDownList;
+    import site.components.popUpWindows.*;
+    import site.model.FlexPhoto;
+    import site.model.FlexUser;
+    import site.util.PhotoHandler;
+    import site.util.UserHandler;
+
+    import spark.events.IndexChangeEvent;
+
+    private function updateButtonClick():void {
+      var fPhoto:FlexPhoto = new FlexPhoto();
+      fPhoto.binData = photo.source as ByteArray;
+      PhotoHandler.savePhoto(fPhoto);
+    }
+
+    private function btn_click(evt:MouseEvent):void {
+      var arr:Array = [];
+      arr.push(new FileFilter("Images", ".gif;*.jpeg;*.jpg;*.png"));
+      fileReference.browse(arr);
+    }
+
+    private function fileReference_select(evt:Event):void {
+      fileReference.load();
+    }
+
+    private function fileReference_complete(evt:Event):void {
+      photo.source = fileReference.data;
+    }
+
+    private function refreshTable():void {
+      
+    }
+
+    ]]></Script>
+
+  <Declarations>
+
+    <net:FileReference id="fileReference"
+                       select="fileReference_select(event);"
+                       complete="fileReference_complete(event);"/>
+
+  </Declarations>
+
+  <s:HGroup width="770" height="600">
+
+    <mx:Form width="770" height="600" fontFamily="tahoma" fontSize="11" verticalGap="13">
+    	  <s:BorderContainer styleName="photoContainer" width="735" height="500">
+			  <mx:Image id="photo" verticalCenter="0" horizontalCenter="0" maxWidth="300" maxHeight="300"/>
+		  </s:BorderContainer>
+       
+    
+      <mx:FormItem direction="horizontal" horizontalAlign="left" >
+		
+			  <s:Button label="загрузить" click="btn_click(event)"/>
+			  <s:Button click="updateButtonClick()" label="сохранить"/>
+			  <s:Button label="удалить"/>
+	       
+      </mx:FormItem>
+
+    </mx:Form>
+
+  </s:HGroup>
+
+</s:HGroup>

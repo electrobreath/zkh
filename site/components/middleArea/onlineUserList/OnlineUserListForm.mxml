@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:VGroup name="OutcomingMessageForm" paddingLeft="10" paddingTop="10" paddingRight="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" x="800">
+
+  <s:states>
+    <s:State name="usersOnline"/>
+    <s:State name="noUsersOnline"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.managers.PopUpManager;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+
+    import mx.rpc.remoting.mxml.RemoteObject;
+
+    import site.components.popUpWindows.profile.ProfileWindow;
+    import site.mainPage.MainPageModel;
+    import site.model.FlexUser;
+    import site.util.UserHandler;
+
+    import spark.components.Button;
+
+    private var usersOnline:ArrayCollection = new ArrayCollection();
+    private var onlineUserTimer:Timer;
+
+    private function refreshUsersOnline():void {
+      usersOnlineDataGrid.visible = false;
+      refreshUsersButton.enabled = false;
+      usersOnline.removeAll();
+      usersOnlineDataGrid.dataProvider = null;
+      var ro:RemoteObject = new RemoteObject("FD");
+      //ro.showBusyCursor = true;
+      ro.addEventListener("result", result);
+      ro.addEventListener("fault", fault);
+      ro.getOnlineUserList();
+
+      function result(event:ResultEvent):void {
+        ro.removeEventListener("result", result);
+        var users:ArrayCollection = ArrayCollection(event.result);
+        for each(var user:FlexUser in users) {
+          usersOnline.addItem({id:user.id, login:user.login, firstName:user.firstName, lastName:user.lastName,
+            floor:user.floor, apartmentNumber:user.apartmentNumber});
+        }
+        renderUsersOnlineDataGrid();
+      }
+
+      function fault(event:FaultEvent):void {
+        ro.removeEventListener("fault", fault);
+        //Alert.show(event.toString());
+      }
+    }
+
+    private function renderUsersOnlineDataGrid():void {
+      refreshUsersButton.enabled = true;
+      if (usersOnline.length == 0) {
+        currentState = "noUsersOnline";
+      } else {
+        currentState = "usersOnline";
+        usersOnlineDataGrid.dataProvider = usersOnline;
+        usersOnlineDataGrid.height = 20 + (usersOnlineDataGrid.rowHeight + 1) * usersOnline.length;
+        usersOnlineDataGrid.visible = true;
+      }
+    }
+
+    private function usersOnlineItemClick(event:Event):void {
+      //selectedOutcomingMessageId = event.target.selectedItem.id;
+      var win:ProfileWindow = ProfileWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), ProfileWindow, true));
+      win.initViewProfileWindow("просмотр профиля", event.target.selectedItem.id);
+      PopUpManager.centerPopUp(win);
+    }
+
+    public function startAutoUpdate():void {
+      onlineUserTimer = new Timer(100000, 0);
+      onlineUserTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+      onlineUserTimer.start();
+    }
+
+    private function timerHandler(event:TimerEvent):void {
+      refreshUsersOnline();
+      //dispatchEvent(new Event(UserHandler.LOGIN_COMPLETE));
+    }
+
+    public function stopAutoUpdate():void {
+      onlineUserTimer.removeEventListener(TimerEvent.TIMER, timerHandler);
+      onlineUserTimer.stop();
+    }
+
+    public function update():void {
+      refreshUsersOnline();
+    }
+
+    ]]></Script>
+
+  <s:HGroup verticalAlign="bottom" gap="20">
+    <s:Label id="noOutcomingMessageText" text="жильцы онлайн" fontFamily="tahoma" fontWeight="bold" fontSize="11"/>
+    <s:Button id="refreshUsersButton" width="24" height="24" toolTip="обновить" click="refreshUsersOnline()" skinClass="site.components.middleArea.onlineUserList.refreshButton.Skin"/>
+  </s:HGroup>
+  <s:VGroup includeIn="usersOnline">
+    <mx:DataGrid id="usersOnlineDataGrid" visible="true" height="0" width="170" fontSize="10" paddingTop="0"
+                 fontFamily="tahoma"
+                 itemClick="usersOnlineItemClick(event)" creationComplete="refreshUsersOnline();">
+      <mx:columns>
+        <mx:DataGridColumn headerText="id" dataField="id" visible="false"/>
+        <mx:DataGridColumn headerText="ник" dataField="login" width="20"/>
+        <mx:DataGridColumn headerText="этаж" dataField="floor" width="15"/>
+        <mx:DataGridColumn headerText="квартира" dataField="apartmentNumber" width="20"/>
+      </mx:columns>
+    </mx:DataGrid>
+  </s:VGroup>
+</s:VGroup>

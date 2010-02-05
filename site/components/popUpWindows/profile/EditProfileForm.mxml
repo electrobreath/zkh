@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:HGroup name="ProfileForm"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:custom="site.components.addressSelectors.*"
+          xmlns:net="flash.net.*" gap="0">
+
+  <s:states>
+    <s:State name="viewProfile"/>
+    <s:State name="editProfile"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.events.ValidationResultEvent;
+    import mx.validators.Validator;
+
+    import site.components.popUpWindows.*;
+    import site.model.FlexUser;
+    import site.util.UserHandler;
+
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    private var userHandler:UserHandler = new UserHandler(true);
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(loginValidator);
+      validate(passwordValidator);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid && userHandler.isLoginFree(login.text);
+      if (!userHandler.isLoginFree(login.text) || login.text.length < 3) {
+        loginTitle.setStyle("color", "#ff0000")
+      } else {
+        loginTitle.setStyle("color", "#000000")
+      }
+      return currentControlIsValid;
+    }
+
+    private function updateButtonClick():void {
+      var user:FlexUser = UserHandler.getUser();
+      user.login = login.text;
+      user.password = password.text;
+      user.firstName = fname.text;
+      user.lastName = lname.text;
+      user.email = email.text;
+      user.mobile = mobile.text;
+      user.avatar = avatar.source as ByteArray;
+      UserHandler.updateUser(user);
+
+      /*currentState = "registrationComplete";
+       var t:Timer = new Timer(1600, 0);
+       t.addEventListener(TimerEvent.TIMER, timerHandler);
+       function timerHandler(event:TimerEvent):void {
+       t.removeEventListener(TimerEvent.TIMER, timerHandler);
+       t.stop();
+       PopUpManager.removePopUp(parent as IFlexDisplayObject);
+       }
+
+       t.start();*/
+    }
+
+    private function btn_click(evt:MouseEvent):void {
+      var arr:Array = [];
+      arr.push(new FileFilter("Images", ".gif;*.jpeg;*.jpg;*.png"));
+      fileReference.browse(arr);
+    }
+
+    private function fileReference_select(evt:Event):void {
+      fileReference.load();
+    }
+
+    private function fileReference_complete(evt:Event):void {
+      avatar.source = fileReference.data;
+    }
+
+    ]]></Script>
+
+  <Declarations>
+    <mx:StringValidator id="loginValidator" source="{login}" property="text" minLength="3" maxLength="12"
+                        trigger="{regButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 3" required="true"/>
+
+    <mx:StringValidator id="passwordValidator" source="{password}" property="text" minLength="4" maxLength="12"
+                        trigger="{regButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 4" required="true"/>
+    <net:FileReference id="fileReference"
+                       select="fileReference_select(event);"
+                       complete="fileReference_complete(event);"/>
+
+  </Declarations>
+
+
+  <mx:Form width="235" height="100%" fontFamily="tahoma" fontSize="11" horizontalScrollPolicy="off"
+           verticalScrollPolicy="off" width.viewProfile="237" verticalGap.viewProfile="10">
+
+    <mx:FormItem id="loginTitle" fontWeight="bold" label="ник">
+      <mx:TextInput id="login" width="130" change="validateForm(event);" text="{UserHandler.getUser().login}"/>
+    </mx:FormItem>
+
+    <mx:FormItem fontWeight="bold" label="пароль">
+      <mx:TextInput id="password" width="130" displayAsPassword="true" change="validateForm(event);"
+                    text="{UserHandler.getUser().password}"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="фамилия">
+      <mx:TextInput id="lname" width="130" text="{UserHandler.getUser().lastName}"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="имя">
+      <mx:TextInput id="fname" width="130" text="{UserHandler.getUser().firstName}"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="моб.телефон">
+      <mx:TextInput id="mobile" width="130" text="{UserHandler.getUser().mobile}"/>
+    </mx:FormItem>
+
+    <mx:FormItem label="email">
+      <mx:TextInput id="email" width="130" text="{UserHandler.getUser().email}"/>
+    </mx:FormItem>
+
+    <mx:FormItem>
+      <mx:Button id="regButton" label="сохранить" width="130" click="updateButtonClick()"/>
+    </mx:FormItem>
+
+  </mx:Form>
+
+  <mx:Form width="235" height="100%" fontFamily="tahoma" fontSize="11" horizontalScrollPolicy="off"
+           verticalScrollPolicy="off" horizontalGap.viewProfile="0">
+    <mx:FormItem id="avatarTitle" direction="vertical" width="170" horizontalAlign="center" width.viewProfile="179"
+                 height.viewProfile="214">
+      <mx:Image id="avatar" verticalCenter="0" horizontalCenter="0" maxWidth="130" maxHeight="162"
+                source="{UserHandler.getUser().avatar}" maxHeight.viewProfile="184"/>
+      <s:Button label="сменить аватар" click="btn_click(event)"/>
+    </mx:FormItem>
+  </mx:Form>
+
+
+</s:HGroup>

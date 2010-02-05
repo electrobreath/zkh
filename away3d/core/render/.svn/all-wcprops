@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2137/trunk/fp10/Away3D/src/away3d/core/render
+END
+QuadrantRenderer.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/QuadrantRenderer.as
+END
+AbstractRenderSession.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2137/trunk/fp10/Away3D/src/away3d/core/render/AbstractRenderSession.as
+END
+IRenderer.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/IRenderer.as
+END
+SpriteRenderSession.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/SpriteRenderSession.as
+END
+Renderer.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/Renderer.as
+END
+BitmapRenderSession.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/BitmapRenderSession.as
+END
+BasicRenderer.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/render/BasicRenderer.as
+END

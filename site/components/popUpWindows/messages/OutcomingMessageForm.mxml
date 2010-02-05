@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- components\topMenu\popUpWindows\RegisterForm.mxml -->
+<s:VGroup name="OutcomingMessageForm" paddingLeft="10" paddingTop="10" paddingRight="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%">
+
+  <s:states>
+    <s:State name="messages"/>
+    <s:State name="nomessages"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ItemClickEvent;
+    import mx.events.ValidationResultEvent;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+
+    import mx.rpc.remoting.mxml.RemoteObject;
+
+    import mx.validators.Validator;
+
+    import site.model.FlexMessage;
+    import site.util.UserHandler;
+
+    import spark.components.Button;
+
+    [Bindable]
+    private var outcomingMessages:ArrayCollection = new ArrayCollection();
+    private var selectedOutcomingMessageId:Number = -1;
+    private var formMessageButton:Button;
+    private var messagesTimer:Timer;
+
+    public function setFormButton(button:Button):void {
+      formMessageButton = button;
+    }
+
+    private function refreshOutcomingMesssage():void {
+      outcomingMessageDataGrid.visible = false;
+      outcomingMessages.removeAll();
+      if (UserHandler.isLoggedIn()) {
+        var ro:RemoteObject = new RemoteObject("FD");
+        //ro.showBusyCursor = true;
+        ro.addEventListener("result", result);
+        ro.addEventListener("fault", fault);
+        ro.getSentMessageListByUserId(UserHandler.getUser().id);
+
+        function result(event:ResultEvent):void {
+          ro.removeEventListener("result", result);
+          var messages:ArrayCollection = ArrayCollection(event.result);
+          for each(var message:FlexMessage in messages) {
+            //todo
+            outcomingMessages.addItem({id:message.id, since:message.since, senderfirstName:message.senderFirstName, senderlastName:message.senderLastName, floor:message.recipientFloor, recipientApartment:message.recipientApartment,
+              recipientLogin:message.recipientLogin, subject:message.subject, shortSubject:(message.subject.length > 20 ? message.subject.substring(0, 20) + ".." : message.subject),
+              text:message.text, shortText:(message.text.length > 50 ? message.text.substring(0, 50) + ".." : message.text)});
+          }
+          renderOutcomingMessageDataGrid();
+          formMessageButton.label = "out" + "(" + outcomingMessages.length + ")";
+        }
+
+        function fault(event:FaultEvent):void {
+          ro.removeEventListener("fault", fault);
+          //Alert.show(event.toString());
+        }
+      }
+    }
+
+    private function renderOutcomingMessageDataGrid():void {
+      delOutcomingMessageButton.enabled = !selectedOutcomingMessageId == -1;
+      if (outcomingMessages.length == 0) {
+        currentState = "nomessages";
+        (parent as IFlexDisplayObject).height = 100;
+      } else {
+        currentState = "messages";
+        outcomingMessageDataGrid.dataProvider = outcomingMessages;
+        outcomingMessageDataGrid.height = 20 + (outcomingMessageDataGrid.rowHeight + 1) * outcomingMessages.length;
+        (parent as IFlexDisplayObject).height = 64 + outcomingMessageDataGrid.height + 27;
+        outcomingMessageDataGrid.visible = true;
+      }
+    }
+
+    private function outcomingMessageItemClick(event:Event):void {
+      selectedOutcomingMessageId = event.target.selectedItem.id;
+      delOutcomingMessageButton.enabled = true;
+    }
+
+    public function startAutoUpdate():void {
+      messagesTimer = new Timer(240000, 0);
+      messagesTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+      messagesTimer.start();
+    }
+
+    private function timerHandler(event:TimerEvent):void {
+      //refreshOutcomingMesssage();
+      //dispatchEvent(new Event(UserHandler.LOGIN_COMPLETE));
+    }
+
+    public function stopAutoUpdate():void {
+      messagesTimer.removeEventListener(TimerEvent.TIMER, timerHandler);
+      messagesTimer.stop();
+    }
+
+    public function updateOutcomingMessages():void {
+      refreshOutcomingMesssage();
+    }
+
+    private function delMessage():void {
+      if (-1 != selectedOutcomingMessageId) {
+        UserHandler.delOutcomingMessageById(selectedOutcomingMessageId);
+        refreshOutcomingMesssage();
+        selectedOutcomingMessageId = -1;
+      }
+    }
+
+    ]]></Script>
+
+  <s:Label id="noOutcomingMessageText" text="нет сообщений" includeIn="nomessages"/>
+  <s:VGroup includeIn="messages">
+    <s:HGroup id="outcomingMessageButtons" visible="true">
+      <s:Button id="delOutcomingMessageButton" width="24" height="24" toolTip="удалить" label="удалить"
+                click="delMessage()" skinClass="site.components.popUpWindows.buttonSkins.delMessageButton.Skin"/>
+    </s:HGroup>
+
+    <mx:DataGrid id="outcomingMessageDataGrid" visible="true" height="0" width="730" fontSize="10" paddingTop="0"
+                 fontFamily="tahoma"
+                 itemClick="outcomingMessageItemClick(event)" creationComplete="refreshOutcomingMesssage();"
+                 includeIn="messages">
+      <mx:columns>
+        <mx:DataGridColumn headerText="id" dataField="id" visible="false"/>
+        <mx:DataGridColumn headerText="кому" dataField="recipientLogin" width="40"/>
+        <mx:DataGridColumn headerText="этаж" dataField="floor" width="15"/>
+        <mx:DataGridColumn headerText="кв." dataField="recipientApartment" width="20"/>
+        <mx:DataGridColumn headerText="дата" dataField="since" width="60"/>
+        <mx:DataGridColumn headerText="заголовок" dataField="shortSubject" width="60"/>
+        <mx:DataGridColumn headerText="текст" dataField="shortText" width="150"/>
+        <mx:DataGridColumn dataField="text" visible="false"/>
+        <mx:DataGridColumn dataField="subject" visible="false"/>
+      </mx:columns>
+    </mx:DataGrid>
+  </s:VGroup>
+</s:VGroup>

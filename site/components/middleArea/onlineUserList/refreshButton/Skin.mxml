@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:SparkSkin name="IncomingMessageRefreshButton"
+             xmlns="http://ns.adobe.com/mxml/2009"
+             xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:mx="library://ns.adobe.com/flex/mx">
+
+  <s:states>
+    <s:State name="up"/>
+    <s:State name="over"/>
+    <s:State name="down"/>
+    <s:State name="disabled"/>
+  </s:states>
+
+  <Metadata>
+        <![CDATA[
+    [HostComponent("spark.components.Button")]
+        ]]>
+    </Metadata>
+
+  <s:Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+    <s:fill>
+      <s:LinearGradient rotation="90">
+        <s:GradientEntry color="0x000000"
+                         color.down="0xFFFFFF"
+                         alpha="0.01"
+                         alpha.down="0"/>
+        <s:GradientEntry color="0x000000"
+                         color.down="0xFFFFFF"
+                         alpha="0.07"
+                         alpha.down="0.5"/>
+      </s:LinearGradient>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+    <s:fill>
+      <s:LinearGradient rotation="90">
+        <s:GradientEntry color="0xFFFFFF"
+                         alpha.disabled="0.1"
+                         color.over="0xBBBDBD"
+                         color.down="0xAAAAAA"
+                         alpha="0.85"/>
+        <s:GradientEntry color="0xD8D8D8"
+                         alpha.disabled="0.1"
+                         color.over="0x9FA0A1"
+                         color.down="0x929496"
+                         alpha="0.85"/>
+      </s:LinearGradient>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+
+    <s:fill>
+      <s:LinearGradient rotation="90">
+        <s:GradientEntry color="0x000000" alpha="0.0099"/>
+        <s:GradientEntry color="0x000000" alpha="0.0627"/>
+      </s:LinearGradient>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+    <s:fill>
+      <s:SolidColor color="0xFFFFFF"
+                    alpha="0.33"
+                    alpha.over="0.22"
+                    alpha.down="0.12"/>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
+    <s:stroke>
+      <s:LinearGradientStroke rotation="90" weight="1">
+        <s:GradientEntry color="0xFFFFFF" alpha.over="0.22"/>
+        <s:GradientEntry color="0xD8D8D8" alpha.over="0.22"/>
+      </s:LinearGradientStroke>
+    </s:stroke>
+  </s:Rect>
+
+  <s:Rect left="1" top="1" bottom="1" width="1" includeIn="down">
+    <s:fill>
+      <s:SolidColor color="0x000000" alpha="0.07"/>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect right="1" top="1" bottom="1" width="1" includeIn="down">
+    <s:fill>
+      <s:SolidColor color="0x000000" alpha="0.07"/>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="2" top="1" right="2" height="1" includeIn="down">
+    <s:fill>
+      <s:SolidColor color="0x000000" alpha="0.25"/>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="1" top="2" right="1" height="1" includeIn="down">
+    <s:fill>
+      <s:SolidColor color="0x000000" alpha="0.09"/>
+    </s:fill>
+  </s:Rect>
+
+  <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+    <s:stroke>
+      <s:LinearGradientStroke rotation="90" weight="1">
+        <s:GradientEntry color="0x000000"
+                         alpha="0.5625"
+                         alpha.down="0.6375"/>
+        <s:GradientEntry color="0x000000"
+                         alpha="0.75"
+                         alpha.down="0.85"/>
+      </s:LinearGradientStroke>
+    </s:stroke>
+  </s:Rect>
+
+  <s:Group id="symbol" left="4" top="4" right="2" bottom="2">
+    <s:filters>
+      <s:DropShadowFilter alpha="0.5" blurX="0" blurY="0" distance="1"/>
+    </s:filters>
+    <s:BitmapImage source="@Embed('monitor.png')"/>
+  </s:Group>
+
+</s:SparkSkin>

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block
+END
+BlockerArray.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block/BlockerArray.as
+END
+Blocker.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block/Blocker.as
+END
+IBlockerConsumer.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block/IBlockerConsumer.as
+END
+ConvexBlocker.as
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block/ConvexBlocker.as
+END
+IBlockerProvider.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/block/IBlockerProvider.as
+END

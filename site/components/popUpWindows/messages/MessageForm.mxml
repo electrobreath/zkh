@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- components\topMenu\popUpWindows\RegisterForm.mxml -->
+<s:VGroup name="SearchForm" paddingLeft="10" paddingTop="10" paddingRight="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%">
+
+  <s:states>
+    <s:State name="noUsersFound"/>
+    <s:State name="default"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ItemClickEvent;
+    import mx.events.ValidationResultEvent;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+
+    import mx.rpc.remoting.mxml.RemoteObject;
+
+    import mx.validators.Validator;
+
+    import site.model.FlexMessage;
+    import site.util.UserHandler;
+
+    import spark.components.Button;
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    private var incomingMessages:ArrayCollection = new ArrayCollection();
+    private var outcomingMessages:ArrayCollection = new ArrayCollection();
+    private var selectedIncomingMessageId:Number;
+    private var selectedOutcomingMessageId:Number;
+    private var selectedSenderId:Number;
+    private var formMessageButton:Button;
+    private var messagesTimer:Timer;
+
+    public function setFormButton(button:Button):void {
+      formMessageButton = button;
+    }
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(messageSubjectValidator);
+      validate(messageTextValidator);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid;
+      return currentControlIsValid;
+    }
+
+    private function refreshIncomingMesssage():void {
+      incomingMessages.removeAll();
+      if (UserHandler.isLoggedIn()) {
+        var ro:RemoteObject = new RemoteObject("FD");
+        //ro.showBusyCursor = true;
+        ro.addEventListener("result", result);
+        ro.addEventListener("fault", fault);
+        ro.getIncomingMessageListByUserId(UserHandler.getUser().id);
+
+        function result(event:ResultEvent):void {
+          ro.removeEventListener("result", result);
+          var messages:ArrayCollection = ArrayCollection(event.result);
+          for each(var message:FlexMessage in messages) {
+            incomingMessages.addItem({id:message.id, since:message.since, senderfirstName:message.senderFirstName, senderlastName:message.senderLastName,
+              senderLogin:message.senderLogin, senderId:message.senderId, subject:message.subject, shortSubject:(message.subject.length > 20 ? message.subject.substring(0, 20) + ".." : message.subject),
+              text:message.text, shortText:(message.text.length > 50 ? message.text.substring(0, 50) + ".." : message.text)});
+          }
+          renderIncomingMessageDataGrid();
+          formMessageButton.label = "сообщения" + "(" + incomingMessages.length + ")";
+        }
+
+        function fault(event:FaultEvent):void {
+          ro.removeEventListener("fault", fault);
+          //Alert.show(event.toString());
+        }
+      }
+    }
+
+    private function renderIncomingMessageDataGrid():void {
+      replyMessageButton.enabled = false;
+      delIncomingMessageButton.enabled = false;
+      replyMessageGroup.visible = false;
+
+      if (incomingMessages.length == 0) {
+        noIncomingMessageText.visible = true;
+        incomingMessageButtons.visible = false;
+        incomingMessageDataGrid.visible = false;
+        (parent as IFlexDisplayObject).height = 200;
+      } else {
+        noIncomingMessageText.visible = false;
+        incomingMessageButtons.visible = true;
+        incomingMessageDataGrid.dataProvider = incomingMessages;
+        incomingMessageDataGrid.height = 20 + (incomingMessageDataGrid.rowHeight + 0.4) * incomingMessages.length;
+        (parent as IFlexDisplayObject).height = 64 + incomingMessageDataGrid.height + 60;
+        incomingMessageDataGrid.visible = true;
+        //Alert.show(String(event.result));
+      }
+    }
+
+    private function refreshOutcomingMesssage():void {
+      outcomingMessages.removeAll();
+      if (UserHandler.isLoggedIn()) {
+        var ro:RemoteObject = new RemoteObject("FD");
+        //ro.showBusyCursor = true;
+        ro.addEventListener("result", result);
+        ro.addEventListener("fault", fault);
+        ro.getSentMessageListByUserId(UserHandler.getUser().id);
+
+        function result(event:ResultEvent):void {
+          ro.removeEventListener("result", result);
+          var messages:ArrayCollection = ArrayCollection(event.result);
+          for each(var message:FlexMessage in messages) {
+            //todo
+            outcomingMessages.addItem({id:message.id, since:message.since, senderfirstName:message.senderFirstName, senderlastName:message.senderLastName,
+              recipientLogin:message.recipientLogin, subject:message.subject, shortSubject:(message.subject.length > 20 ? message.subject.substring(0, 20) + ".." : message.subject),
+              text:message.text, shortText:(message.text.length > 50 ? message.text.substring(0, 50) + ".." : message.text)});
+          }
+          renderOutcomingMessageDataGrid();
+        }
+
+        function fault(event:FaultEvent):void {
+          ro.removeEventListener("fault", fault);
+          //Alert.show(event.toString());
+        }
+      }
+    }
+
+    private function renderOutcomingMessageDataGrid():void {
+      if (null != outcomingMessageDataGrid) {
+        if (outcomingMessages.length == 0) {
+          noOutcomingMessageText.visible = true;
+          outcomingMessageButtons.visible = false;
+          outcomingMessageDataGrid.visible = false;
+          (parent as IFlexDisplayObject).height = 200;
+        } else {
+          noOutcomingMessageText.visible = false;
+          outcomingMessageButtons.visible = true;
+          outcomingMessageDataGrid.dataProvider = outcomingMessages;
+          outcomingMessageDataGrid.height = 20 + (outcomingMessageDataGrid.rowHeight + 0.4) * outcomingMessages.length;
+          (parent as IFlexDisplayObject).height = 64 + outcomingMessageDataGrid.height + 60;
+          outcomingMessageDataGrid.visible = true;
+          //Alert.show(String(event.result));
+        }
+      }
+    }
+
+    private function incomingMessageItemClick(event:Event):void {
+      replyMessageButton.enabled = true;
+      delIncomingMessageButton.enabled = true;
+      selectedIncomingMessageId = event.target.selectedItem.id;
+      selectedSenderId = event.target.selectedItem.senderId;
+      messageSubject.text = event.target.selectedItem.subject;
+    }
+
+    private function outcomingMessageItemClick(event:Event):void {
+      selectedOutcomingMessageId = event.target.selectedItem.id;
+    }
+
+    public function startAutoUpdate():void {
+      messagesTimer = new Timer(240000, 0);
+      messagesTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+      messagesTimer.start();
+    }
+
+    private function timerHandler(event:TimerEvent):void {
+      refreshIncomingMesssage();
+      //refreshOutcomingMesssage();
+      //dispatchEvent(new Event(UserHandler.LOGIN_COMPLETE));
+    }
+
+    public function stopAutoUpdate():void {
+      messagesTimer.removeEventListener(TimerEvent.TIMER, timerHandler);
+      messagesTimer.stop();
+    }
+
+    public function updateIncomingMessages():void {
+      refreshIncomingMesssage();
+    }
+
+    public function updateOutcomingMessages():void {
+      refreshOutcomingMesssage();
+    }
+
+    private function createMessage():void {
+      if (replyMessageGroup.visible) {
+        replyMessageGroup.visible = false;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (replyMessageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      } else {
+        replyMessageGroup.visible = true;
+        (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height + (replyMessageGroup.height + 4);
+        //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+      }
+      //Alert.show(UserHandler.getUser().id.toString() + " " + UserHandler.getUser().firstName);
+    }
+
+    private function sendMessage():void {
+      var message:FlexMessage = new FlexMessage();
+      message.subject = messageSubject.text;
+      message.text = messageText.text;
+      message.senderId = UserHandler.getUser().id;
+      message.recipientId = selectedSenderId;
+      UserHandler.createMessage(message);
+      messageSubject.text = "";
+      messageText.text = "";
+      sendMessageButton.enabled = false;
+      replyMessageGroup.visible = false;
+      (parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (replyMessageGroup.height + 4);
+      //(parent as IFlexDisplayObject).height = (parent as IFlexDisplayObject).height - (messageGroup.height + 4);
+      UserHandler.userWindowsHandler.updateOutcomingMessages();
+      //PopUpManager.centerPopUp(parent as IFlexDisplayObject);
+    }
+
+    ]]></Script>
+
+  <Declarations>
+    <mx:StringValidator id="messageSubjectValidator" source="{messageSubject}" property="text" minLength="4"
+                        triggerEvent="click" trigger="{sendMessageButton}"
+                        tooShortError="напишите еще что нибуть" required="true"/>
+    <mx:StringValidator id="messageTextValidator" source="{messageText}" property="text" minLength="10"
+                        triggerEvent="click" trigger="{sendMessageButton}"
+                        tooShortError="напишите чуть чуть больше" required="true"/>
+  </Declarations>
+
+  <s:TabBar id="tabs" dataProvider="{vs}" width="100%"/>
+  <mx:ViewStack id="vs" width="95%" height="85%" left="8" y="23">
+    <s:NavigatorContent label="входящие" width="100%" height="100%">
+      <s:Label id="noIncomingMessageText" text="нет сообщений"/>
+      <s:VGroup>
+        <s:HGroup id="incomingMessageButtons" visible="false">
+          <s:Button id="refreshMessageButton" width="34" height="34" toolTip="обновить" label="обновить"
+                    click="refreshIncomingMesssage()"/>
+          <s:Button id="replyMessageButton" width="34" height="34" toolTip="ответить" label="ответить"
+                    click="createMessage()"/>
+          <s:Button id="delIncomingMessageButton" width="34" height="34" toolTip="удалить" label="удалить"/>
+          <s:Label id="testLabel" text="-- на кнопках будут иконки"/>
+        </s:HGroup>
+
+        <mx:DataGrid id="incomingMessageDataGrid" visible="false" height="0" width="530" fontSize="10" paddingTop="0"
+                     fontFamily="tahoma"
+                     itemClick="incomingMessageItemClick(event)" creationComplete="refreshIncomingMesssage();">
+          <mx:columns>
+            <mx:DataGridColumn dataField="id" visible="false"/>
+            <mx:DataGridColumn dataField="senderId" visible="false"/>
+            <mx:DataGridColumn headerText="от" dataField="senderLogin" width="40"/>
+            <mx:DataGridColumn headerText="дата" dataField="since" width="40"/>
+            <mx:DataGridColumn headerText="заголовок" dataField="shortSubject" width="60"/>
+            <mx:DataGridColumn headerText="текст" dataField="shortText" width="150"/>
+            <mx:DataGridColumn dataField="subject" visible="false"/>
+            <mx:DataGridColumn dataField="text" visible="false"/>
+          </mx:columns>
+        </mx:DataGrid>
+
+        <s:BorderContainer id="replyMessageGroup" height="110" width="530" visible="false" fontFamily="tahoma"
+                           fontSize="10"
+                           borderColor="0x707070" backgroundAlpha="0.0">
+          <mx:Form paddingTop="3">
+            <mx:FormItem label="заголовок">
+              <s:TextInput id="messageSubject" width="420" change="validateForm(event);" editable="false"/>
+            </mx:FormItem>
+            <mx:FormItem label="текст">
+              <mx:TextArea id="messageText" width="420" height="50" change="validateForm(event);"/>
+            </mx:FormItem>
+            <mx:FormItem>
+              <s:Button id="sendMessageButton" label="отправить" click="sendMessage()" enabled="{formIsValid}"/>
+            </mx:FormItem>
+          </mx:Form>
+        </s:BorderContainer>
+
+      </s:VGroup>
+    </s:NavigatorContent>
+
+    <s:NavigatorContent label="отправленные" width="100%" height="100%">
+      <s:Label id="noOutcomingMessageText" text="нет сообщений"/>
+      <s:VGroup>
+        <s:HGroup id="outcomingMessageButtons" visible="true">
+          <s:Button id="delOutcomingMessageButton" width="34" height="34" toolTip="удалить" label="удалить"/>
+        </s:HGroup>
+
+        <mx:DataGrid id="outcomingMessageDataGrid" visible="false" height="0" width="530" fontSize="10" paddingTop="0"
+                     fontFamily="tahoma"
+                     itemClick="outcomingMessageItemClick(event)" creationComplete="refreshOutcomingMesssage();">
+          <mx:columns>
+            <mx:DataGridColumn headerText="id" dataField="id" visible="false"/>
+            <mx:DataGridColumn headerText="кому" dataField="recipientLogin" width="40"/>
+            <mx:DataGridColumn headerText="дата" dataField="since" width="40"/>
+            <mx:DataGridColumn headerText="заголовок" dataField="shortSubject" width="60"/>
+            <mx:DataGridColumn headerText="текст" dataField="shortText" width="150"/>
+            <mx:DataGridColumn dataField="text" visible="false"/>
+            <mx:DataGridColumn dataField="subject" visible="false"/>
+          </mx:columns>
+        </mx:DataGrid>
+      </s:VGroup>
+    </s:NavigatorContent>
+
+  </mx:ViewStack>
+</s:VGroup>

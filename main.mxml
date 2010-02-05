@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+        xmlns="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+
+        initialize="init1()" frameRate="60" backgroundColor="0xefefef">
+  <Style source="site/css/main.css"/>
+
+  <s:layout>
+    <s:VerticalLayout horizontalAlign="center" gap="0"/>
+  </s:layout>
+
+
+  <Script>
+	<![CDATA[
+    import site.mainPage.MainPageController;
+
+    function init1():void {
+      new MainPageController(topMenuArea, middleArea, bottomArea);
+    }
+	]]>
+  </Script>
+
+  <s:BorderContainer id="topMenuArea" styleName="topMenuArea" width="100%" height="43" dropShadowVisible="true">
+    <s:layout>
+      <s:HorizontalLayout verticalAlign="middle"/>
+    </s:layout>
+  </s:BorderContainer>
+
+  <s:BorderContainer id="middleArea" styleName="middleArea" backgroundColor="0xcbcaca" width="960" height="720">
+  </s:BorderContainer>
+
+  <s:BorderContainer id="bottomArea" styleName="bottomArea" width="100%" height="30">
+  </s:BorderContainer>
+
+</s:Application>

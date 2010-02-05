@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2129/trunk/fp10/Away3D/src/away3d/core/base
+END
+Billboard.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1721/trunk/fp10/Away3D/src/away3d/core/base/Billboard.as
+END
+Face.as
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2103/trunk/fp10/Away3D/src/away3d/core/base/Face.as
+END
+Graphics3D.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1746/trunk/fp10/Away3D/src/away3d/core/base/Graphics3D.as
+END
+Element.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1721/trunk/fp10/Away3D/src/away3d/core/base/Element.as
+END
+IAnimation.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/IAnimation.as
+END
+AnimationTransition.as
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/AnimationTransition.as
+END
+Morpher.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/Morpher.as
+END
+Segment.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2129/trunk/fp10/Away3D/src/away3d/core/base/Segment.as
+END
+Geometry.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2059/trunk/fp10/Away3D/src/away3d/core/base/Geometry.as
+END
+Object3D.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/core/base/Object3D.as
+END
+Frame.as
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/Frame.as
+END
+DrawingCommand.as
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/DrawingCommand.as
+END
+Mesh.as
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2060/trunk/fp10/Away3D/src/away3d/core/base/Mesh.as
+END
+VertexPosition.as
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/VertexPosition.as
+END
+VertexClassification.as
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/VertexClassification.as
+END
+Vertex.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/Vertex.as
+END
+Animation.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/Animation.as
+END
+IFrame.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/IFrame.as
+END
+UV.as
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/base/UV.as
+END

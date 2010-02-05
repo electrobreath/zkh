@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2117/trunk/fp10/Away3D/src/away3d/loaders
+END
+AWData.as
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2018/trunk/fp10/Away3D/src/away3d/loaders/AWData.as
+END
+Max3DS.as
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Max3DS.as
+END
+Md2still.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Md2still.as
+END
+Md2.as
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Md2.as
+END
+Kmz.as
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Kmz.as
+END
+LoaderCube.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/LoaderCube.as
+END
+Obj.as
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2117/trunk/fp10/Away3D/src/away3d/loaders/Obj.as
+END
+Loader3D.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2090/trunk/fp10/Away3D/src/away3d/loaders/Loader3D.as
+END
+Ase.as
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Ase.as
+END
+Collada.as
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2116/trunk/fp10/Away3D/src/away3d/loaders/Collada.as
+END
+Swf.as
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2017/trunk/fp10/Away3D/src/away3d/loaders/Swf.as
+END
+AbstractParser.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2116/trunk/fp10/Away3D/src/away3d/loaders/AbstractParser.as
+END

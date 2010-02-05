@@ -1,0 +1,101 @@
+<s:VGroup name="OutcomingMessageForm" paddingLeft="10" paddingTop="10" paddingRight="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%"
+          xmlns:qs="qs.controls.*" creationComplete="init()" click="displaySelectedImage(event)">
+
+  <Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+    import mx.rpc.remoting.mxml.RemoteObject;
+
+    import site.model.FlexPhoto;
+    import site.util.UserHandler;
+
+    public static const DIRECTION_HORIZONTAL:String = "horizontal";
+    public static const DIRECTION_VERTICAL:String = "vertical";
+
+    public static const HORIZONTAL_ALIGN_LEFT:String = "left";
+    public static const HORIZONTAL_ALIGN_CENTER:String = "center";
+    public static const HORIZONTAL_ALIGN_RIGHT:String = "right";
+    public static const HORIZONTAL_ALIGN_JUSTIFIED:String = "justified";
+
+    public static const VERTICAL_ALIGN_TOP:String = "top";
+    public static const VERTICAL_ALIGN_CENTER:String = "center";
+    public static const VERTICAL_ALIGN_BOTTOM:String = "bottom";
+    public static const VERTICAL_ALIGN_JUSTIFIED:String = "justified";
+
+    [Bindable]
+    public var images:Array;
+    [Bindable]
+    public var currentDP:Array;
+
+    private function init():void {
+
+      images = new Array();
+
+      fisheye.direction = DIRECTION_HORIZONTAL;
+      fisheye.setStyle("horizontalAlign", HORIZONTAL_ALIGN_CENTER);
+      fisheye.setStyle("verticalAlign", VERTICAL_ALIGN_CENTER);
+      fisheye.setStyle("defaultSpacing", 5);
+      fisheye.setStyle("defaultScale", 0.25);
+      fisheye.setStyle("hilightMaxScale", 0.25);
+      fisheye.setStyle("hilightScaleRadius", 3);
+      fisheye.setStyle("hilightScaleSlope", 1);
+      fisheye.setStyle("animationSpeed", 0.2);
+
+
+    }
+
+    public function displaySelectedImage(event:MouseEvent):void {
+      selectedImage.source = images[fisheye.selectedIndex];
+      //Alert.show(fisheye.selectedIndex.toString());
+    }
+
+    public function updatePhotos(id:Number):void {
+      images = new Array();
+
+      var ro:RemoteObject = new RemoteObject("FD");
+      ro.showBusyCursor = true;
+      ro.addEventListener("result", result);
+      ro.addEventListener("fault", fault);
+      ro.getPhotoListByUserId(id);
+
+      function result(event:ResultEvent):void {
+        ro.removeEventListener("result", result);
+        var photos:ArrayCollection = ArrayCollection(event.result);
+        for each(var photo:FlexPhoto in photos) {
+          images.push("/media?id=" + photo.id);
+        }
+        currentDP = images;
+      }
+
+      function fault(event:FaultEvent):void {
+        ro.removeEventListener("fault", fault);
+        //Alert.show(event.toString());
+      }
+    }
+
+    ]]>
+  </Script>
+
+  <mx:VBox width="300" horizontalGap="0" height="350" styleName="insetBox" clipContent="true" horizontalAlign="center"
+           horizontalScrollPolicy="off" verticalScrollPolicy="off">
+    <mx:Image id="selectedImage" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"/>
+    <qs:Fisheye id="fisheye" width="100%" height="120" dataProvider="{currentDP}"
+                defaultValue="" selectedValue="selected"
+                verticalAlign="top"
+                horizontalAlign="center">
+      <qs:itemRenderer>
+        <Component id="imageRenderer">
+          <qs:BitmapTile>
+          </qs:BitmapTile>
+        </Component>
+      </qs:itemRenderer>
+    </qs:Fisheye>
+  </mx:VBox>
+
+</s:VGroup>

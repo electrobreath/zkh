@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2130/trunk/fp10/Away3D/src/away3d/primitives
+END
+LineSegment.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/LineSegment.as
+END
+TextField3D.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1983/trunk/fp10/Away3D/src/away3d/primitives/TextField3D.as
+END
+RegularPolygon.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/RegularPolygon.as
+END
+Plane.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Plane.as
+END
+WireCylinder.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WireCylinder.as
+END
+WireCube.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1639/trunk/fp10/Away3D/src/away3d/primitives/WireCube.as
+END
+WirePlane.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WirePlane.as
+END
+GridPlane.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/GridPlane.as
+END
+Cylinder.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1659/trunk/fp10/Away3D/src/away3d/primitives/Cylinder.as
+END
+Cube.as
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Cube.as
+END
+WireCircle.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WireCircle.as
+END
+Torus.as
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Torus.as
+END
+WireSphere.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WireSphere.as
+END
+Trident.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2061/trunk/fp10/Away3D/src/away3d/primitives/Trident.as
+END
+CurveLineSegment.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2130/trunk/fp10/Away3D/src/away3d/primitives/CurveLineSegment.as
+END
+WireTorus.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WireTorus.as
+END
+Sphere.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Sphere.as
+END
+Skybox6.as
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Skybox6.as
+END
+SeaTurtle.as
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/SeaTurtle.as
+END
+Skybox.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Skybox.as
+END
+BezierPatch.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/BezierPatch.as
+END
+GeodesicSphere.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/GeodesicSphere.as
+END
+Triangle.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/Triangle.as
+END
+WireCone.as
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/WireCone.as
+END
+AbstractPrimitive.as
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/AbstractPrimitive.as
+END
+Cone.as
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1659/trunk/fp10/Away3D/src/away3d/primitives/Cone.as
+END
+RoundedCube.as
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/RoundedCube.as
+END
+ReflectivePlane.as
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/primitives/ReflectivePlane.as
+END

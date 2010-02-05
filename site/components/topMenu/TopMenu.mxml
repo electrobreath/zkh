@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- components\topMenu\TopMenu.mxml -->
+<s:HGroup name="TopMenu" paddingLeft="170"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx">
+  <s:states>
+    <s:State name="newUser"/>
+    <s:State name="loggedUser"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.controls.Alert;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+
+    import mx.validators.Validator;
+
+    import site.components.middleArea.UserWindowsHandler;
+    import site.components.middleArea.onlineUserList.OnlineUserListForm;
+    import site.components.popUpWindows.profile.ProfileWindow;
+    import site.components.popUpWindows.register.RegisterWindow;
+    import site.components.popUpWindows.setting.SettingWindow;
+    import site.mainPage.MainPageController;
+    import site.mainPage.MainPageModel;
+    import site.model.FlexUser;
+    import site.util.UserHandler;
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    private var userHandler:UserHandler = new UserHandler();
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(loginValidator);
+      validate(passwordValidator);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid;
+      return currentControlIsValid;
+    }
+
+    private function registrationButtonClick():void {
+      var win:RegisterWindow = RegisterWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), RegisterWindow, true));
+      win.initWindow("Регистрация");
+      //PopUpManager.centerPopUp(win);
+    }
+
+    private function settingButtonClick():void {
+      var win:SettingWindow = SettingWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), SettingWindow, true));
+      win.initWindow("Настройки");
+      //PopUpManager.centerPopUp(win);
+    }
+
+    private function profileButtonClick():void {
+      var win:ProfileWindow = ProfileWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), ProfileWindow, true));
+      win.initEditProfileWindow("Редактирование профиля");
+      //PopUpManager.centerPopUp(win);
+    }
+
+    private function loginButtonClick():void {
+      var user:FlexUser = new FlexUser();
+      user.login = login.text;
+      user.password = password.text;
+      userHandler.prepareLoginProccess(user);
+      userHandler.addEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+      function onComplete(event:Event):void {
+        userHandler.removeEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+        currentState = "loggedUser";
+        var userWindowsHandler:UserWindowsHandler = MainPageModel.getMiddleArea().getElementAt(1) as UserWindowsHandler;
+        //userWindowsHandler.updateIncomingMessages();
+        //userWindowsHandler.updateOutcomingMessages();
+        userWindowsHandler.visible = true;
+        userLoginLabel.text = UserHandler.getUser().login;
+        var onlineUsers:OnlineUserListForm = MainPageModel.getMiddleArea().getElementAt(2) as OnlineUserListForm;
+        onlineUsers.update();
+        onlineUsers.startAutoUpdate();
+        onlineUsers.visible = true;
+      }
+
+      userHandler.startLogin();
+    }
+
+    private function logoutButtonClick():void {
+      //todo
+      userHandler.logout();
+      login.text = "логин";
+      password.text = "пароль";
+      currentState = "newUser";
+      MainPageModel.getMiddleArea().getElementAt(1).visible = false;
+      MainPageModel.getMiddleArea().getElementAt(2).visible = false;
+    }
+
+    ]]></Script>
+
+  <Declarations>
+    <mx:StringValidator id="loginValidator" source="{login}" property="text" minLength="3" maxLength="12"
+                        trigger="{loginButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 3" required="true"/>
+
+    <mx:StringValidator id="passwordValidator" source="{password}" property="text" minLength="4" maxLength="12"
+                        trigger="{loginButton}" triggerEvent="click"
+                        tooLongError="больше 12" tooShortError="меньше 4" required="true"/>
+  </Declarations>
+
+  <!-- New User controll-->
+  <s:Button click="registrationButtonClick()" label="Регистрация" includeIn="newUser"/>
+  <s:TextInput id="login" name="login" text="логин" includeIn="newUser" change="validateForm(event);"/>
+  <s:TextInput id="password" name="password" text="пароль" includeIn="newUser" change="validateForm(event);" displayAsPassword="true"/>
+  <s:Button id="loginButton" click="loginButtonClick()" label="Войти" includeIn="newUser" enabled="{formIsValid}"/>
+
+  <!-- Logged User controll-->
+  <s:Button click="settingButtonClick()" label="настройки" includeIn="loggedUser"/>
+  <s:Button click="profileButtonClick()" label="профиль" includeIn="loggedUser"/>
+  <s:Button click="logoutButtonClick()" label="Выйти" includeIn="loggedUser"/>
+  <s:Label id="userLoginLabel" includeIn="loggedUser" fontWeight="bold" fontFamily="tahoma"/>
+
+</s:HGroup>

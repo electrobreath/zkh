@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:HGroup name="ProfileForm"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:custom="site.components.addressSelectors.*"
+          xmlns:net="flash.net.*">
+
+  <s:states>
+    <s:State name="viewProfile"/>
+    <s:State name="editProfile"/>
+  </s:states>
+
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+    import mx.rpc.remoting.mxml.RemoteObject;
+    import mx.validators.Validator;
+
+    import site.components.addressSelectors.CityDropDownList;
+    import site.components.popUpWindows.*;
+    import site.model.FlexUser;
+    import site.util.UserHandler;
+
+    import spark.events.IndexChangeEvent;
+
+    public function updateInfo(id:Number):void {
+      var ro:RemoteObject = new RemoteObject("FD");
+      //ro.showBusyCursor = true;
+      ro.addEventListener("result", result);
+      ro.addEventListener("fault", fault);
+      ro.getOnlineFlexUserById(id);
+
+      function result(event:ResultEvent):void {
+        ro.removeEventListener("result", result);
+        var flexUser:FlexUser = FlexUser(event.result);
+        renderForm(flexUser);
+      }
+
+      function fault(event:FaultEvent):void {
+        ro.removeEventListener("fault", fault);
+        //Alert.show(event.toString());
+      }
+    }
+
+    private function renderForm(flexUser:FlexUser):void {
+      if(flexUser.avatar == null){
+        avatar.source = UserHandler.getDefaultAvatar();
+      } else {
+        avatar.source = flexUser.avatar;
+      }
+      login.text = flexUser.login;
+      lname.text = flexUser.lastName;
+      fname.text = flexUser.firstName;
+      floor.text = flexUser.floor.toString();
+      apartment.text = flexUser.apartmentNumber.toString();
+      mobile.text = flexUser.mobile;
+      email.text = flexUser.email;
+    }
+
+    ]]></Script>
+
+  <s:VGroup>
+    <mx:Form width="300" height="100%" fontFamily="tahoma" fontSize="11">
+
+      <mx:FormItem id="avatarTitle" label="аватар">
+        <mx:Image id="avatar" verticalCenter="0" horizontalCenter="0" maxWidth="100" maxHeight="100"/>
+      </mx:FormItem>
+
+      <mx:FormItem id="loginTitle" fontWeight="bold" label="ник">
+        <mx:TextInput id="login" width="130" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="фамилия">
+        <mx:TextInput id="lname" width="130" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="имя">
+        <mx:TextInput id="fname" width="130" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="этаж">
+        <mx:TextInput id="floor" width="30" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="номер квартиры">
+        <mx:TextInput id="apartment" width="130" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="моб.телефон">
+        <mx:TextInput id="mobile" width="130" editable="false"/>
+      </mx:FormItem>
+
+      <mx:FormItem label="email">
+        <mx:TextInput id="email" width="130" editable="false"/>
+      </mx:FormItem>
+
+    </mx:Form>
+  </s:VGroup>
+
+</s:HGroup>

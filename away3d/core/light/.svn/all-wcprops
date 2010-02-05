@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light
+END
+AmbientLight.as
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/AmbientLight.as
+END
+ILightProvider.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/ILightProvider.as
+END
+DirectionalLight.as
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/DirectionalLight.as
+END
+PointLight.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/PointLight.as
+END
+LightArray.as
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/LightArray.as
+END
+ILightConsumer.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/ILightConsumer.as
+END
+LightPrimitive.as
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1565/trunk/fp10/Away3D/src/away3d/core/light/LightPrimitive.as
+END
