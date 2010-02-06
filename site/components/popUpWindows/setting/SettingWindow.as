@@ -24,12 +24,10 @@ public class SettingWindow extends MyTitleWindow {
 
   override public function setStyles():void {
     styleName = "settingsWindow";
-	
-	
-	width = 650;
+    width = 650;
     height = 463;
-	y = 45;
-	x = 167;
+    y = 45;
+    x = 167;
     //setStyle("dropShadowColor", 0x707070);
     //setStyle("titleStyleName", "titleName")
     //setStyle("shadowDistance", 2);

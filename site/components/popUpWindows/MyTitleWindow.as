@@ -30,9 +30,9 @@ public class MyTitleWindow extends TitleWindow {
   }
 
   private function setTitle(name:String):void {
-	titleLabel.styleName = "allWindowTitleLabel";
-   	titleLabel.text = name;
-	titleBar.addChild(titleLabel);
+    titleLabel.styleName = "allWindowTitleLabel";
+    titleLabel.text = name;
+    titleBar.addChild(titleLabel);
   }
 
   public function updateTitle(name:String):void {
@@ -49,8 +49,8 @@ public class MyTitleWindow extends TitleWindow {
   }
 
   public function setStyles():void {
-    
-	setStyle("paddingTop", 0);
+
+    setStyle("paddingTop", 0);
     setStyle("paddingBottom", 0);
     setStyle("paddingLeft", 0);
     setStyle("paddingRight", 0);
@@ -76,9 +76,9 @@ public class MyTitleWindow extends TitleWindow {
     super.updateDisplayList(unscaledWidth, unscaledHeight);
     titleLabel.setActualSize(titleLabel.getExplicitOrMeasuredWidth(), titleLabel.getExplicitOrMeasuredHeight());
     //maxMin.setActualSize(maxMin.getExplicitOrMeasuredWidth(), maxMin.getExplicitOrMeasuredHeight());
-   // titleLabel.width = 200;
-   // titleLabel.move(width/2 - titleLabel.text.length/2 - 35, 5);
-	titleLabel.move(10,5);
+    // titleLabel.width = 200;
+    // titleLabel.move(width/2 - titleLabel.text.length/2 - 35, 5);
+    titleLabel.move(10, 5);
     //maxMin.width = 20;
     //maxMin.move(5, 7);
     //menuBox.setActualSize(menuBox.getExplicitOrMeasuredWidth(), menuBox.getExplicitOrMeasuredHeight());
