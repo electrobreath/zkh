@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				 xmlns:s="library://ns.adobe.com/flex/spark" 
+				 xmlns:mx="library://ns.adobe.com/flex/halo" 
+				 xmlns:ns="library://ns.adobe.com/flex/mx"
+				 width="400" height="166">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+		<ns:Grid horizontalGap="0" width="400">
+			<ns:GridRow width="400" height="30">
+				<ns:GridItem width="200" verticalAlign="middle" paddingLeft="10">
+					<ns:LinkButton  styleName="advertisementUserName" id="UserNameLink" label="Юрий Кукушкин" />
+				</ns:GridItem>
+				<ns:GridItem width="200" verticalAlign="middle" horizontalAlign="right" paddingRight="20">
+					<s:Label styleName="advertisementDate" id="date" text="21.02.2010"/>
+				</ns:GridItem>
+			</ns:GridRow>
+		</ns:Grid>
+		
+	<s:VGroup paddingLeft="20">
+			<s:Label width="360">
+				Кто-то во дворе погнул качели. Кроме того из песочницы украли весь песок. 
+			</s:Label>
+			
+			<!--ns:Image /-->
+		</s:VGroup>
+<fx:Script>
+	<![CDATA[
+		
+		UserNameLink.addEventListener('click',onLinkUserButtonClick);
+		
+		public function onLinkUserButtonClick():void {
+			
+		}
+	]]>
+</fx:Script>
+</s:VGroup>

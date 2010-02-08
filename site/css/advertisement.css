@@ -1,0 +1,14 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/halo";
+
+.advertisementUserName{
+	
+}
+.advertisementDate{
+	
+}
+
+.advertisementText{
+	font-size:22;
+}

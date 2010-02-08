@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:VGroup name="ProfileForm"
+		  xmlns="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:custom="site.components.addressSelectors.*"
+		  xmlns:net="flash.net.*">
+	<Style source="../../../css/advertisement.css" />
+		
+	
+</s:VGroup>
