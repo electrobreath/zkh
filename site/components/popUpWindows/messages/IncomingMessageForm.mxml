@@ -209,7 +209,7 @@
         <mx:DataGridColumn dataField="id" visible="false"/>
         <mx:DataGridColumn dataField="senderId" visible="false"/>
         <mx:DataGridColumn headerText="от" dataField="senderLogin" width="40"/>
-        <mx:DataGridColumn headerText="этаж" dataField="floor" width="15"/>
+        <mx:DataGridColumn headerText="этаж" dataField="floor" width="20"/>
         <mx:DataGridColumn headerText="кв." dataField="senderApartment" width="20"/>
         <mx:DataGridColumn headerText="дата" dataField="since" width="60"/>
         <mx:DataGridColumn headerText="заголовок" dataField="shortSubject" width="60"/>

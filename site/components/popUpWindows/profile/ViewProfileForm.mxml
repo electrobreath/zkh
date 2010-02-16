@@ -35,7 +35,7 @@
       //ro.showBusyCursor = true;
       ro.addEventListener("result", result);
       ro.addEventListener("fault", fault);
-      ro.getOnlineFlexUserById(id);
+      ro.getFlexUserById(id);
 
       function result(event:ResultEvent):void {
         ro.removeEventListener("result", result);

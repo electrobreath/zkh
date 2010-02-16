@@ -1,5 +1,6 @@
 package site.components.middleArea {
 
+import mx.effects.Glow;
 import mx.managers.PopUpManager;
 
 import flash.events.Event;
@@ -18,7 +19,6 @@ import spark.components.Label;
 import spark.components.VGroup;
 
 public class UserWindowsHandler extends VGroup {
-
   private var userPanel:VGroup;
 
   private var messagePanel:VGroup;
@@ -31,6 +31,8 @@ public class UserWindowsHandler extends VGroup {
   private var forumButton:Button;
   private var advertisementButton:Button;
 
+  private var glow:Glow;
+
   public function UserWindowsHandler() {
     super();
     visible = false;
@@ -42,6 +44,7 @@ public class UserWindowsHandler extends VGroup {
     userPanel.alpha = 0.7;
     userPanel.percentWidth = 100;
     userPanel.height = 300;
+    greateGlow();
 
     createMessagePanel();
     createActionPanel();
@@ -72,6 +75,7 @@ public class UserWindowsHandler extends VGroup {
     incomingMessageButton.width = 120;
     incomingMessageButton.label = "входящие";
     incomingMessageButton.toolTip = "входящие";
+    incomingMessageButton.setStyle("rollOverEffect", glow);
 
     var outcomingMessageButton:Button = new Button();
     outcomingMessageButton.styleName = "messButton";
@@ -79,6 +83,7 @@ public class UserWindowsHandler extends VGroup {
     outcomingMessageButton.width = 120;
     outcomingMessageButton.label = "исходящие";
     outcomingMessageButton.toolTip = "исходящие";
+    outcomingMessageButton.setStyle("rollOverEffect", glow);
 
     var label:Label = new Label();
     label.text = "Cообщения";
@@ -99,7 +104,6 @@ public class UserWindowsHandler extends VGroup {
         incomingWin.updateIncomingMessages();
         incomingWin.visible = !incomingWin.visible;
       }
-
       PopUpManager.bringToFront(incomingWin);
 
     });
@@ -128,9 +132,7 @@ public class UserWindowsHandler extends VGroup {
     label.text = "Действия";
     label.styleName = "messLabel";
     actionPanel.addElement(label);
-
     actionPanel.addElement(createSearchWindow());
-
   }
 
   private function createServicePanel():void {
@@ -144,7 +146,7 @@ public class UserWindowsHandler extends VGroup {
     label.styleName = "messLabel";
     servicePanel.addElement(label);
 
-    servicePanel.addElement(createFriendsWindow());
+    //servicePanel.addElement(createFriendsWindow());
     servicePanel.addElement(createMyPhotosWindows());
     servicePanel.addElement(createAdvertisementButton());
     servicePanel.addElement(createForumButton());
@@ -155,6 +157,7 @@ public class UserWindowsHandler extends VGroup {
     searchButton.width = 120;
     searchButton.height = 38;
     searchButton.label = "поиск жильцов";
+    searchButton.setStyle("rollOverEffect", glow);
 
     var win:SearchWindow = SearchWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), SearchWindow, false));
     win.initWindow("поиск жильцов");
@@ -176,6 +179,7 @@ public class UserWindowsHandler extends VGroup {
     friendButton.height = 38;
     friendButton.label = "друзья";
     friendButton.styleName = "friendButton";
+    friendButton.setStyle("rollOverEffect", glow);
 
     var win:FriendsWindow = FriendsWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), FriendsWindow, false));
     win.initWindow("друзья");
@@ -198,6 +202,7 @@ public class UserWindowsHandler extends VGroup {
     photoButton.height = 38;
     photoButton.label = "мои фотографии";
     photoButton.styleName = "photoButton";
+    photoButton.setStyle("rollOverEffect", glow);
 
     var win:MyPhotoWindow = MyPhotoWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), MyPhotoWindow, false));
 
@@ -220,7 +225,7 @@ public class UserWindowsHandler extends VGroup {
     forumButton.height = 38;
     forumButton.label = "форум";
     forumButton.styleName = "forumButton";
-
+    forumButton.setStyle("rollOverEffect", glow);
     return forumButton;
 
   }
@@ -231,6 +236,7 @@ public class UserWindowsHandler extends VGroup {
     advertisementButton.height = 38;
     advertisementButton.label = "объявления";
     advertisementButton.styleName = "advertisementButton";
+    advertisementButton.setStyle("rollOverEffect", glow);
 
     var win:AdvertisementWindow = AdvertisementWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), AdvertisementWindow, false));
 
@@ -261,6 +267,16 @@ public class UserWindowsHandler extends VGroup {
 
   public function updateOutcomingMessages():void {
     (PopUpStore.getWindowByName(MessageWindow.outcoming) as MessageWindow).updateOutcomingMessages();
+  }
+
+  private function greateGlow():void {
+    glow = new Glow();
+    glow.duration = 1000;
+    glow.blurXFrom = 0;
+    glow.blurXTo = 100;
+    glow.blurYFrom = 0;
+    glow.blurYTo = 100;
+    glow.color = 0x33ff33;
   }
 }
 }

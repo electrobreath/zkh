@@ -5,7 +5,7 @@ import site.components.middleArea.onlineUserList.OnlineUserListForm;
 import site.mainPage.BackGroundPhoto;
 import site.components.middleArea.UserWindowsHandler;
 import site.components.topMenu.TopMenu;
-import site.model3D.HouseModel;
+//import site.model3D.HouseModel;
 import site.util.UserHandler;
 import spark.components.BorderContainer;
 

@@ -69,10 +69,10 @@
       var user:FlexUser = new FlexUser();
       user.login = login.text;
       user.password = password.text;
-      userHandler.prepareLoginProccess(user);
-      userHandler.addEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
-      function onComplete(event:Event):void {
-        userHandler.removeEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+      //userHandler.prepareLoginProccess(user);
+//      userHandler.addEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+//      function onComplete(event:Event):void {
+//        userHandler.removeEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
         currentState = "loggedUser";
         var userWindowsHandler:UserWindowsHandler = MainPageModel.getMiddleArea().getElementAt(1) as UserWindowsHandler;
         //userWindowsHandler.updateIncomingMessages();
@@ -83,7 +83,7 @@
         onlineUsers.update();
         onlineUsers.startAutoUpdate();
         onlineUsers.visible = true;
-      }
+//      }
 
       userHandler.startLogin();
     }

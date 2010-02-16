@@ -132,7 +132,7 @@
       <mx:columns>
         <mx:DataGridColumn headerText="id" dataField="id" visible="false"/>
         <mx:DataGridColumn headerText="кому" dataField="recipientLogin" width="40"/>
-        <mx:DataGridColumn headerText="этаж" dataField="floor" width="15"/>
+        <mx:DataGridColumn headerText="этаж" dataField="floor" width="20"/>
         <mx:DataGridColumn headerText="кв." dataField="recipientApartment" width="20"/>
         <mx:DataGridColumn headerText="дата" dataField="since" width="60"/>
         <mx:DataGridColumn headerText="заголовок" dataField="shortSubject" width="60"/>
