@@ -18,7 +18,7 @@ import spark.components.Button;
 import spark.components.Label;
 import spark.components.VGroup;
 
-public class UserWindowsHandler extends VGroup {
+public class UserWindowsButtons extends VGroup {
   private var userPanel:VGroup;
 
   private var messagePanel:VGroup;
@@ -33,7 +33,7 @@ public class UserWindowsHandler extends VGroup {
 
   private var glow:Glow;
 
-  public function UserWindowsHandler() {
+  public function UserWindowsButtons() {
     super();
     visible = false;
     name = "userPanels";

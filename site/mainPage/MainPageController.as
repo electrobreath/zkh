@@ -3,7 +3,7 @@ import mx.containers.HBox;
 
 import site.components.middleArea.onlineUserList.OnlineUserListForm;
 import site.mainPage.BackGroundPhoto;
-import site.components.middleArea.UserWindowsHandler;
+import site.components.middleArea.UserWindowsButtons;
 import site.components.topMenu.TopMenu;
 //import site.model3D.HouseModel;
 import site.util.UserHandler;
@@ -26,7 +26,7 @@ public class MainPageController {
     middleArea.addElement(new BackGroundPhoto(userHandler));
     //middleArea.addElement(new HouseModel(900, 700));
     
-    var userWindowsHandler:UserWindowsHandler = new UserWindowsHandler();
+    var userWindowsHandler:UserWindowsButtons = new UserWindowsButtons();
     UserHandler.userWindowsHandler = userWindowsHandler;
     middleArea.addElementAt(userWindowsHandler, 1);
     var usersOnline:OnlineUserListForm = new OnlineUserListForm();

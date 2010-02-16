@@ -18,7 +18,7 @@ import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.remoting.mxml.RemoteObject;
 
-import site.components.middleArea.UserWindowsHandler;
+import site.components.middleArea.UserWindowsButtons;
 import site.model.FlexPhoto;
 import site.model.FlexUser;
 import site.model.FlexMessage;
@@ -27,7 +27,7 @@ public class UserHandler extends EventDispatcher {
   public static const LOGIN_COMPLETE:String = "complete";
   private static var flexUser:FlexUser;
   private var usedLogins:ArrayCollection;
-  public static var userWindowsHandler:UserWindowsHandler;
+  public static var userWindowsHandler:UserWindowsButtons;
 
   public function UserHandler(...args) {
     if (args[0] is Boolean) {

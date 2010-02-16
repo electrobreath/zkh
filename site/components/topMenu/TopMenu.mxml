@@ -16,7 +16,7 @@
 
     import mx.validators.Validator;
 
-    import site.components.middleArea.UserWindowsHandler;
+    import site.components.middleArea.UserWindowsButtons;
     import site.components.middleArea.onlineUserList.OnlineUserListForm;
     import site.components.popUpWindows.profile.ProfileWindow;
     import site.components.popUpWindows.register.RegisterWindow;
@@ -69,12 +69,12 @@
       var user:FlexUser = new FlexUser();
       user.login = login.text;
       user.password = password.text;
-      //userHandler.prepareLoginProccess(user);
-//      userHandler.addEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
-//      function onComplete(event:Event):void {
-//        userHandler.removeEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+      userHandler.prepareLoginProccess(user);
+      userHandler.addEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
+      function onComplete(event:Event):void {
+        userHandler.removeEventListener(UserHandler.LOGIN_COMPLETE, onComplete);
         currentState = "loggedUser";
-        var userWindowsHandler:UserWindowsHandler = MainPageModel.getMiddleArea().getElementAt(1) as UserWindowsHandler;
+        var userWindowsHandler:UserWindowsButtons = MainPageModel.getMiddleArea().getElementAt(1) as UserWindowsButtons;
         //userWindowsHandler.updateIncomingMessages();
         //userWindowsHandler.updateOutcomingMessages();
         userWindowsHandler.visible = true;
@@ -83,7 +83,7 @@
         onlineUsers.update();
         onlineUsers.startAutoUpdate();
         onlineUsers.visible = true;
-//      }
+      }
 
       userHandler.startLogin();
     }
