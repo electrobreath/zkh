@@ -15,7 +15,7 @@ package site.components.popUpWindows.advertisement
 		
 		public function initWindow(name:String):void {
 			init(name);
-			addChild(new AdvertisementForm());
+			addChild(new Advertisements());
 		}
 		
 		private function closeWindow(event:CloseEvent):void {
