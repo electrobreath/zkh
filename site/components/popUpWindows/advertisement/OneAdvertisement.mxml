@@ -19,13 +19,19 @@
 			</ns:GridRow>
 		</ns:Grid>
 		
-	<s:VGroup paddingLeft="20">
-			<s:Label width="360">
-				Кто-то во дворе погнул качели. Кроме того из песочницы украли весь песок. 
-			</s:Label>
-			
-			<!--ns:Image /-->
-		</s:VGroup>
+	<ns:Grid horizontalGap="0" width="400">
+		<ns:GridRow width="400" height="130">
+			<ns:GridItem width="200" verticalAlign="top" paddingLeft="10">
+				<s:Label width="190">
+					Кто-то во дворе погнул качели.
+				</s:Label>
+			</ns:GridItem>
+			<ns:GridItem width="200" verticalAlign="top" horizontalAlign="center">
+				<ns:Image />
+			</ns:GridItem>
+		</ns:GridRow>
+	</ns:Grid>
+		
 <fx:Script>
 	<![CDATA[
 		
