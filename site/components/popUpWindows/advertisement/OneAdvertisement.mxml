@@ -22,18 +22,26 @@
 	<ns:Grid horizontalGap="0" width="400">
 		<ns:GridRow width="400" height="130">
 			<ns:GridItem width="200" verticalAlign="top" paddingLeft="10">
-				<s:Label width="190">
+				<s:Label width="190" id="text">
 					Кто-то во дворе погнул качели.
 				</s:Label>
 			</ns:GridItem>
 			<ns:GridItem width="200" verticalAlign="top" horizontalAlign="center">
-				<ns:Image />
+				<ns:Image id="image"/>
 			</ns:GridItem>
 		</ns:GridRow>
 	</ns:Grid>
 		
 <fx:Script>
 	<![CDATA[
+		import site.model.FlexAdvertisement;
+		
+		public function fill(remoteObj:FlexAdvertisement):void {
+			this.UserNameLink = remoteObj.userLogin;
+			this.date = remoteObj.since;
+			this.text = remoteObj.text;
+			this.image = remoteObj.binData;
+		}
 		
 		UserNameLink.addEventListener('click',onLinkUserButtonClick);
 		
