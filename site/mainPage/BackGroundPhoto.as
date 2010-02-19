@@ -38,7 +38,7 @@ public class BackGroundPhoto extends UIComponent {
   }
 
   private function setPhotoTemp():void {
-    [Embed(source="/images/ed.jpg")]
+    [Embed(source="/images/Untitled-22.jpg")]
     var imageSrc:Class;
 
     var image:Image = new Image();

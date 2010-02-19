@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:VGroup name="ProfileForm" paddingLeft="10" paddingTop="0" paddingRight="10"
+          xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
+          fontSize="10" fontFamily="tahoma" gap="2"
+          xmlns:net="flash.net.*">
+  <Script><![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.IFlexDisplayObject;
+    import mx.effects.easing.Circular;
+    import mx.events.ValidationResultEvent;
+    import mx.managers.PopUpManager;
+    import mx.validators.Validator;
+
+    import site.components.addressSelectors.CityDropDownList;
+    import site.components.popUpWindows.*;
+    import site.model.FlexAdvertisement;
+    import site.model.FlexPhoto;
+    import site.model.FlexUser;
+    import site.util.AdvertisementHandler;
+    import site.util.PhotoHandler;
+    import site.util.UserHandler;
+
+    import spark.events.IndexChangeEvent;
+
+    [Bindable]
+    private var formIsValid:Boolean = false;
+    private var focussedFormControl:DisplayObject;
+    var advs:Advertisements;
+
+    private function validateForm(event:Event):void {
+      focussedFormControl = event.target as DisplayObject;
+      formIsValid = true;
+      validate(advText);
+    }
+
+    private function validate(validator:Validator):Boolean {
+      var validatorSource:DisplayObject = validator.source as DisplayObject;
+      var suppressEvents:Boolean = (validatorSource != focussedFormControl);
+      var event:ValidationResultEvent = validator.validate(null, suppressEvents);
+      var currentControlIsValid:Boolean = (event.type == ValidationResultEvent.VALID);
+      formIsValid = formIsValid && currentControlIsValid;
+      return currentControlIsValid;
+    }
+
+
+    private function updateButtonClick():void {
+      var fPhoto:FlexPhoto = new FlexPhoto();
+      //fPhoto.binData = photo.source as ByteArray;
+      PhotoHandler.savePhoto(fPhoto);
+    }
+
+    private function btn_click(evt:MouseEvent):void {
+      var arr:Array = [];
+      arr.push(new FileFilter("Images", ".gif;*.jpeg;*.jpg;*.png"));
+      //fileReference.browse(arr);
+    }
+
+    private function fileReference_select(evt:Event):void {
+      //fileReference.load();
+    }
+
+    private function fileReference_complete(evt:Event):void {
+      //photo.source = fileReference.data;
+    }
+
+    private function refreshTable():void {
+
+    }
+
+    private function createAdv():void {
+      var flexAdv:FlexAdvertisement = new FlexAdvertisement();
+      flexAdv.text = advertisementText.text;
+      flexAdv.userId = UserHandler.getUser().id;
+      flexAdv.spam = spam.selected;
+      AdvertisementHandler.createAdvertisement(flexAdv);
+      advertisementText.text = "";
+      spam.selected = false;
+      advs.refreshByUserId();
+      formIsValid = false;
+    }
+
+    public function setAdvertisementList(advs:Advertisements):void {
+      this.advs = advs;
+    }
+
+    ]]></Script>
+
+  <Declarations>
+
+    <mx:StringValidator id="advText" source="{advertisementText}" property="text" minLength="6" maxLength="420"
+                        trigger="{but}" triggerEvent="click"
+                        tooLongError="больше 420" tooShortError="очень маленькое объявление" required="true"/>
+
+    <net:FileReference id="fileReference"
+                       select="fileReference_select(event);"
+                       complete="fileReference_complete(event);"/>
+
+  </Declarations>
+
+  <s:Label text="текст"/>
+  <s:TextArea id="advertisementText" width="260" height="70" change="validateForm(event);"/>
+  <s:CheckBox id="spam" label="рассылка всем"/>
+  <s:Button id="but" label="разместить" click="createAdv()" enabled="{formIsValid}"/>
+
+</s:VGroup>

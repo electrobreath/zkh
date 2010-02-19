@@ -2,6 +2,7 @@ package site.mainPage{
 import mx.containers.HBox;
 
 import site.components.middleArea.onlineUserList.OnlineUserListForm;
+import site.components.popUpWindows.advertisement.AllAdvertisements;
 import site.mainPage.BackGroundPhoto;
 import site.components.middleArea.UserWindowsButtons;
 import site.components.topMenu.TopMenu;
@@ -32,6 +33,9 @@ public class MainPageController {
     var usersOnline:OnlineUserListForm = new OnlineUserListForm();
     usersOnline.visible = false;
     middleArea.addElementAt(usersOnline, 2);
+    var allAdv:AllAdvertisements = new AllAdvertisements();
+    allAdv.startAutoUpdate();
+    middleArea.addElement(allAdv);
     //middleArea.addElement(new LayoutConstructor(userHandler));
   }
 

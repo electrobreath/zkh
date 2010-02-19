@@ -4,14 +4,13 @@
         xmlns:s="library://ns.adobe.com/flex/spark"
         xmlns:mx="library://ns.adobe.com/flex/mx"
 
-        initialize="init1()" frameRate="60" backgroundColor="0xefefef">
+        initialize="init1()" frameRate="60" backgroundColor="0xffffff">
   <Style source="site/css/main.css"/>
 
  
 	<s:layout>
-    <s:VerticalLayout horizontalAlign="center" gap="0"/>
+    <s:VerticalLayout horizontalAlign="center"/>
   </s:layout>
-
 
   <Script>
 	<![CDATA[
@@ -29,10 +28,10 @@
     </s:layout>
   </s:BorderContainer>
 
-  <s:BorderContainer id="middleArea" styleName="middleArea" backgroundColor="0xcbcaca" width="960" height="720">
+  <s:BorderContainer id="middleArea" styleName="middleArea" backgroundColor="0xffffff" width="960" height="720" borderWeight="0">
   </s:BorderContainer>
 
-  <s:BorderContainer id="bottomArea" styleName="bottomArea" width="100%" height="30">
+  <s:BorderContainer id="bottomArea" styleName="bottomArea" width="100%" height="30" backgroundColor="0xffffff">
   </s:BorderContainer>
 
 </s:Application>

@@ -50,7 +50,7 @@
     private function registrationButtonClick():void {
       var win:RegisterWindow = RegisterWindow(PopUpManager.createPopUp(MainPageModel.getMiddleArea(), RegisterWindow, true));
       win.initWindow("Регистрация");
-      //PopUpManager.centerPopUp(win);
+      PopUpManager.centerPopUp(win);
     }
 
     private function settingButtonClick():void {
@@ -98,6 +98,14 @@
       MainPageModel.getMiddleArea().getElementAt(2).visible = false;
     }
 
+    private function setFullScreen():void {
+      if(stage.displayState == StageDisplayState.FULL_SCREEN){
+        stage.displayState = StageDisplayState.NORMAL;
+      } else {
+        stage.displayState = StageDisplayState.FULL_SCREEN
+      }
+    }
+
     ]]></Script>
 
   <Declarations>
@@ -115,11 +123,13 @@
   <s:TextInput id="login" name="login" text="логин" includeIn="newUser" change="validateForm(event);"/>
   <s:TextInput id="password" name="password" text="пароль" includeIn="newUser" change="validateForm(event);" displayAsPassword="true"/>
   <s:Button id="loginButton" click="loginButtonClick()" label="Войти" includeIn="newUser" enabled="{formIsValid}"/>
+  <mx:LinkButton id="fullScreen" label="на весь экран" paddingLeft="100" includeIn="newUser" click="setFullScreen()"/>
 
   <!-- Logged User controll-->
   <s:Button click="settingButtonClick()" label="настройки" includeIn="loggedUser"/>
   <s:Button click="profileButtonClick()" label="профиль" includeIn="loggedUser"/>
   <s:Button click="logoutButtonClick()" label="Выйти" includeIn="loggedUser"/>
   <s:Label id="userLoginLabel" includeIn="loggedUser" fontWeight="bold" fontFamily="tahoma"/>
+  <mx:LinkButton id="fullScreen1" label="на весь экран" paddingLeft="100" includeIn="loggedUser" click="setFullScreen()"/>
 
 </s:HGroup>

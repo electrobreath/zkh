@@ -2,7 +2,7 @@
 <s:VGroup name="OutcomingMessageForm" paddingLeft="10" paddingTop="10" paddingRight="10"
           xmlns="http://ns.adobe.com/mxml/2009"
           xmlns:s="library://ns.adobe.com/flex/spark"
-          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" x="800">
+          xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" x="0" y="420">
 
   <s:states>
     <s:State name="usersOnline"/>
@@ -97,7 +97,7 @@
 
     ]]></Script>
 
-  <s:HGroup verticalAlign="bottom" gap="20">
+  <s:HGroup verticalAlign="bottom" gap="50">
     <s:Label id="noOutcomingMessageText" text="жильцы онлайн" fontFamily="tahoma" fontWeight="bold" fontSize="11"/>
     <s:Button id="refreshUsersButton" width="24" height="24" toolTip="обновить" click="refreshUsersOnline()" skinClass="site.components.middleArea.onlineUserList.refreshButton.Skin"/>
   </s:HGroup>

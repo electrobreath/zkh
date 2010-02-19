@@ -4,6 +4,8 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  xmlns:custom="site.components.addressSelectors.*"
+      x="800"
+      paddingTop="30"
 		  xmlns:net="flash.net.*">
 	<Style source="../../../css/advertisement.css" />
   <Script><![CDATA[
@@ -31,13 +33,15 @@
     import spark.components.Label;
     import spark.events.IndexChangeEvent;
 
-    public function refreshByUserId():void {
+    private var messagesTimer:Timer;
+
+    public function refresh():void {
       list.removeAllElements();
       var ro:RemoteObject = new RemoteObject("FD");
       //ro.showBusyCursor = true;
       ro.addEventListener("result", result);
       ro.addEventListener("fault", fault);
-      ro.getAdvertisementListByUserId(UserHandler.getUser().id);
+      ro.getAllAdvertisementList();
 
       function result(event:ResultEvent):void {
         ro.removeEventListener("result", result);
@@ -46,6 +50,7 @@
           var dv:OneAdvertisement = new OneAdvertisement();
           dv.fill(adv);
           dv.name = adv.id.toString();
+          dv.setShowMode();
           //dv.setAdvertisementList(this);
           list.addElement(dv);
           list.addElement(new Spacer());
@@ -58,9 +63,21 @@
       }
     }
 
+    public function startAutoUpdate():void {
+      messagesTimer = new Timer(200000, 0);
+      messagesTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+      messagesTimer.start();
+    }
+
+    private function timerHandler(event:TimerEvent):void {
+      refresh();
+    }
+
     ]]></Script>
 
-  <s:VGroup id="list" name="list" creationComplete="refreshByUserId()" gap="12">
+  <s:Label text="последние объявления" fontWeight="bold" fontSize="13" fontFamily="tahoma"/>
+  <mx:Spacer/>
+  <s:VGroup id="list" name="list" creationComplete="refresh()" gap="12">
   </s:VGroup>
 
 </s:VGroup>

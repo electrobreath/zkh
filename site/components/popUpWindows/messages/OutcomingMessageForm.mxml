@@ -59,7 +59,7 @@
               text:message.text, shortText:(message.text.length > 50 ? message.text.substring(0, 50) + ".." : message.text)});
           }
           renderOutcomingMessageDataGrid();
-          formMessageButton.label = "out" + "(" + outcomingMessages.length + ")";
+          formMessageButton.label = "исходящие" + "(" + outcomingMessages.length + ")";
         }
 
         function fault(event:FaultEvent):void {

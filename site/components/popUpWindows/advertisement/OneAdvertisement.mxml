@@ -1,53 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				 xmlns:s="library://ns.adobe.com/flex/spark" 
-				 xmlns:mx="library://ns.adobe.com/flex/halo" 
-				 xmlns:ns="library://ns.adobe.com/flex/mx"
-				 width="400" height="166">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	
-		<ns:Grid horizontalGap="0" width="400">
-			<ns:GridRow width="400" height="30">
-				<ns:GridItem width="200" verticalAlign="middle" paddingLeft="10">
-					<ns:LinkButton  styleName="advertisementUserName" id="UserNameLink" label="Юрий Кукушкин" />
-				</ns:GridItem>
-				<ns:GridItem width="200" verticalAlign="middle" horizontalAlign="right" paddingRight="20">
-					<s:Label styleName="advertisementDate" id="date" text="21.02.2010"/>
-				</ns:GridItem>
-			</ns:GridRow>
-		</ns:Grid>
-		
-	<ns:Grid horizontalGap="0" width="400">
-		<ns:GridRow width="400" height="130">
-			<ns:GridItem width="200" verticalAlign="top" paddingLeft="10">
-				<s:Label width="190" id="text">
-					Кто-то во дворе погнул качели.
-				</s:Label>
-			</ns:GridItem>
-			<ns:GridItem width="200" verticalAlign="top" horizontalAlign="center">
-				<ns:Image id="image"/>
-			</ns:GridItem>
-		</ns:GridRow>
-	</ns:Grid>
-		
-<fx:Script>
+<s:VGroup xmlns="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
+          width="350" height="70" gap="2">
+
+  <Script>
 	<![CDATA[
-		import site.model.FlexAdvertisement;
-		
-		public function fill(remoteObj:FlexAdvertisement):void {
-			this.UserNameLink = remoteObj.userLogin;
-			this.date = remoteObj.since;
-			this.text = remoteObj.text;
-			this.image = remoteObj.binData;
-		}
-		
-		UserNameLink.addEventListener('click',onLinkUserButtonClick);
-		
-		public function onLinkUserButtonClick():void {
-			
-		}
+    import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.controls.Spacer;
+    import mx.rpc.events.FaultEvent;
+
+    import mx.rpc.events.ResultEvent;
+
+    import mx.rpc.remoting.mxml.RemoteObject;
+
+    import mx.utils.ObjectUtil;
+
+    import site.model.FlexAdvertisement;
+
+    var id_:Number = -1;
+    var advs:Advertisements;
+    var isShow:Boolean = true;
+
+    public function fill(adv:FlexAdvertisement):void {
+      userName.text = adv.userLogin;
+      since.text = adv.since;
+      text.text = adv.text;
+      id_ = adv.id;
+      //image.source = remoteObj.binData;
+      del.addEventListener(MouseEvent.CLICK, delAdv);
+    }
+
+    public function setAdvertisementList(advs:Advertisements):void {
+      this.advs = advs;
+    }
+
+    private function delAdv(e:Event):void {
+      var ro:RemoteObject = new RemoteObject("FD");
+      //ro.showBusyCursor = true;
+      ro.addEventListener("result", result);
+      ro.addEventListener("fault", fault);
+      ro.delAdvertisementById(id_);
+
+      function result(event:ResultEvent):void {
+        ro.removeEventListener("result", result);
+        var vG:VGroup = parent.parent.getChildByName("list") as VGroup;
+        var one:OneAdvertisement = vG.getChildByName(name) as OneAdvertisement;
+        vG.removeElementAt(vG.getElementIndex(one));
+        vG.invalidateDisplayList();
+        vG.invalidateLayering();
+        //Alert.show(ObjectUtil.toString(vG.getElementIndex(one)));
+        //var a = (parent.getChildByName("list") as DisplayObjectContainer).getChildByName(name);
+        //Alert.show(a.name);
+        //advs.refresh();
+      }
+
+      function fault(event:FaultEvent):void {
+        ro.removeEventListener("fault", fault);
+        //Alert.show(event.toString());
+      }
+    }
+
+    public function setShowMode():void {
+      //isShow = false;
+      width = 200;
+      text.width = 200;
+      del.visible = false;
+    }
 	]]>
-</fx:Script>
+  </Script>
+
+  <Declarations>
+    <!-- Place non-visual elements (e.g., services, value objects) here -->
+  </Declarations>
+  <s:HGroup fontSize="10" fontFamily="tahoma">
+    <s:Label id="userName" fontWeight="bold"/>
+    <s:Label id="since"/>
+    <s:Label id="del" text="удалить" color="0x3380DD" paddingLeft="130"/>
+  </s:HGroup>
+  <s:TextArea id="text" alpha="0.5" width="350" height="70" editable="false" color="0x000000"/>
+
 </s:VGroup>

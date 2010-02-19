@@ -9,6 +9,8 @@ public class FlexAdvertisement {
   public var text:String;
   public var binData:ByteArray;
   public var userLogin:String;
+  public var userId:Number;
+  public var spam:Boolean;
 
   public function FlexAdvertisement() {
   }

@@ -1,5 +1,8 @@
 package site.components.middleArea {
 
+import away3d.geom.Align;
+
+import mx.controls.Alert;
 import mx.effects.Glow;
 import mx.managers.PopUpManager;
 
@@ -247,6 +250,7 @@ public class UserWindowsButtons extends VGroup {
     PopUpStore.addWindow(win);
     advertisementButton.addEventListener(MouseEvent.CLICK, function(event:Event) {
       if (!win.visible) {
+        if(null != win.getAdvertisementsList())win.getAdvertisementsList().refreshByUserId();
         win.visible = !win.visible;
       }
 
@@ -276,7 +280,7 @@ public class UserWindowsButtons extends VGroup {
     glow.blurXTo = 100;
     glow.blurYFrom = 0;
     glow.blurYTo = 100;
-    glow.color = 0x33ff33;
+    glow.color = 0xff501b;
   }
 }
 }

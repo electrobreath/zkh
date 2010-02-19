@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<s:HGroup name="ProfileForm"
+<s:HGroup name="ProfileForm" paddingLeft="10" paddingTop="10" paddingRight="10"
 		  xmlns="http://ns.adobe.com/mxml/2009"
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
-		  xmlns:custom="site.components.addressSelectors.*"
+      paddingBottom="20"
 		  xmlns:net="flash.net.*">
 	
 	<Script><![CDATA[
@@ -14,64 +14,40 @@
 		import mx.events.ValidationResultEvent;
 		import mx.managers.PopUpManager;
 		import mx.validators.Validator;
-		
-		import site.components.addressSelectors.CityDropDownList;
+
+    import org.osmf.layout.AbsoluteLayoutFacet;
+
+    import site.components.addressSelectors.CityDropDownList;
 		import site.components.popUpWindows.*;
-		import site.model.FlexPhoto;
+    import site.model.FlexAdvertisement;
+    import site.model.FlexPhoto;
 		import site.model.FlexUser;
-		import site.util.PhotoHandler;
+    import site.util.AdvertisementHandler;
+    import site.util.PhotoHandler;
 		import site.util.UserHandler;
-		
-		import spark.events.IndexChangeEvent;
-		
-		private function updateButtonClick():void {
-			var fPhoto:FlexPhoto = new FlexPhoto();
-			fPhoto.binData = photo.source as ByteArray;
-			PhotoHandler.savePhoto(fPhoto);
-		}
-		
-		private function btn_click(evt:MouseEvent):void {
-			var arr:Array = [];
-			arr.push(new FileFilter("Images", ".gif;*.jpeg;*.jpg;*.png"));
-			fileReference.browse(arr);
-		}
-		
-		private function fileReference_select(evt:Event):void {
-			fileReference.load();
-		}
-		
-		private function fileReference_complete(evt:Event):void {
-			photo.source = fileReference.data;
-		}
-		
-		private function refreshTable():void {
-			
-		}
-		
+
+    import spark.components.VGroup;
+    import spark.events.IndexChangeEvent;
+    var adv:Advertisements;
+
+    public function create():void {
+      var adv:Advertisements = new Advertisements();
+      this.adv = adv;
+      var a:NewAdvertisement = new NewAdvertisement();
+      var b:VGroup = new VGroup();
+      b.addElement(adv);
+      a.setAdvertisementList(adv);
+      addElement(a);
+      addElement(b);
+    }
+
+    public function getAdvertisementsList():Advertisements {
+      return adv;
+    }
+
 	]]></Script>
-	
-	<Declarations>
-		
-		<net:FileReference id="fileReference"
-						   select="fileReference_select(event);"
-						   complete="fileReference_complete(event);"/>
-		
-	</Declarations>
-	
-	<s:HGroup>
-		
-		<mx:Form width="200" height="100%" fontFamily="tahoma" fontSize="11">
-			<mx:FormItem id="avatarTitle" label="">
-				<mx:Image id="photo" verticalCenter="0" horizontalCenter="0" maxWidth="100" maxHeight="100"/>
-				<!--s:Button label="загрузить" click="btn_click(event)"/-->
-			</mx:FormItem>
-			
-			<mx:FormItem>
-				<!--s:Button click="updateButtonClick()" label="сохранить"/-->
-			</mx:FormItem>
-			
-		</mx:Form>
-		
-	</s:HGroup>
+
+  <s:Scroller >
+  </s:Scroller>
 	
 </s:HGroup>

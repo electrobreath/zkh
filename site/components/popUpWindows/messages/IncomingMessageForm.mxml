@@ -78,7 +78,7 @@
               text:message.text, shortText:(message.text.length > 50 ? message.text.substring(0, 50) + ".." : message.text)});
           }
           renderIncomingMessageDataGrid();
-          formMessageButton.label = "in" + "(" + incomingMessages.length + ")";
+          formMessageButton.label = "входящие" + "(" + incomingMessages.length + ")";
         }
 
         function fault(event:FaultEvent):void {
